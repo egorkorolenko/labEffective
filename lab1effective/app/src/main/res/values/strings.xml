@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">lab1effective</string>
+    <string name="choose_your_hero" translatable="false">Choose your hero</string>
+    <string name="deadpool" translatable="false">DeadPool</string>
+    <string name="captain_america" translatable="false">Captain America</string>
+    <string name="doctor_strange" translatable="false">Doctor Strange</string>
+    <string name="hulk" translatable="false">Hulk</string>
+    <string name="thor" translatable="false">Thor</string>
+    <string name="iron_man" translatable="false">Iron Man</string>
+    <string name="red_widow" translatable="false">Red Widow</string>
+    <string name="spider_man" translatable="false">Spider man</string>
+    <string name="thanos" translatable="false">Thanos</string>
+</resources>

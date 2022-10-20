@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">lab1effective</string>
+    <string name="choose_your_hero" translatable="false">Выбери своего героя</string>
+    <string name="deadpool" translatable="false">Дедпул</string>
+    <string name="captain_america" translatable="false">Капитан америка</string>
+    <string name="doctor_strange" translatable="false">Доктор Стрендж</string>
+    <string name="hulk" translatable="false">Халк</string>
+    <string name="thor" translatable="false">Тор</string>
+    <string name="iron_man" translatable="false">Железный человек</string>
+    <string name="red_widow" translatable="false">Красная вдова</string>
+    <string name="spider_man" translatable="false">Человек паук</string>
+    <string name="thanos" translatable="false">Танос</string>
+</resources>
