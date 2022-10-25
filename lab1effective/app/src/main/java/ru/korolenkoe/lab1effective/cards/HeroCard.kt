@@ -1,3 +1,5 @@
+@file:Suppress("PreviewAnnotationInFunctionWithParameters")
+
 package ru.korolenkoe.lab1effective.cards
 
 import androidx.compose.foundation.BorderStroke
@@ -19,12 +21,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.HeroItem
 
+class CardHeroProvider: PreviewParameterProvider<HeroItem> {
+    override val values = sequenceOf(HeroItem(R.string.thor,R.drawable.thor))
+}
+
+@Preview(widthDp = 300, heightDp = 550)
 @Composable
-fun HeroCard(hero: HeroItem) {
+fun HeroCard(@PreviewParameter(CardHeroProvider::class,1) hero: HeroItem) {
     Card(
         modifier = Modifier.padding(20.dp),
         shape = RoundedCornerShape(16.dp),
