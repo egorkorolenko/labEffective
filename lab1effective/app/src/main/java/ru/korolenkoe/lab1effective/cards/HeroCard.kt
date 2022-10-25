@@ -29,13 +29,13 @@ import androidx.compose.ui.unit.sp
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.HeroItem
 
-class CardHeroProvider: PreviewParameterProvider<HeroItem> {
+private class HeroCardProvider: PreviewParameterProvider<HeroItem> {
     override val values = sequenceOf(HeroItem(R.string.thor,R.drawable.thor))
 }
 
 @Preview(widthDp = 300, heightDp = 550)
 @Composable
-fun HeroCard(@PreviewParameter(CardHeroProvider::class,1) hero: HeroItem) {
+fun HeroCard(@PreviewParameter(HeroCardProvider::class,1) hero: HeroItem) {
     Card(
         modifier = Modifier.padding(20.dp),
         shape = RoundedCornerShape(16.dp),
