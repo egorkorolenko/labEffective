@@ -1,4 +1,4 @@
-package ru.korolenkoe.lab1effective.screen
+package ru.korolenkoe.lab1effective.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -11,17 +11,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import ru.korolenkoe.lab1effective.LazyRowHeroes
 import ru.korolenkoe.lab1effective.R
 
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavController?) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         MarvelLogo()
         ChooseYourHeroText()
-        LazyRowHeroes()
+        LazyRowHeroes(navController)
     }
 }
 

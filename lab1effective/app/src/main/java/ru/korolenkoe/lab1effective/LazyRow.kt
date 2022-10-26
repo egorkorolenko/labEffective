@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 import ru.korolenkoe.lab1effective.cards.HeroCard
@@ -28,7 +29,7 @@ internal val listHeroes = listOf(
 
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
-fun LazyRowHeroes() {
+fun LazyRowHeroes(navController: NavController?) {
     val lazyListHeroes = rememberLazyListState()
 
     LazyRow(
@@ -39,7 +40,7 @@ fun LazyRowHeroes() {
         modifier = Modifier.fillMaxWidth(),
     ) {
         items(listHeroes) { index ->
-            HeroCard(hero = index)
+            HeroCard(hero = index, navController)
         }
     }
 }

@@ -5,6 +5,7 @@ package ru.korolenkoe.lab1effective.cards
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,18 +27,31 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.HeroItem
+import ru.korolenkoe.lab1effective.navigation.Screen
+import ru.korolenkoe.lab1effective.screens.HeroScreen
+import ru.korolenkoe.lab1effective.screens.MainScreen
 
-private class HeroCardProvider: PreviewParameterProvider<HeroItem> {
-    override val values = sequenceOf(HeroItem(R.string.thor,R.drawable.thor))
+private class HeroCardProvider : PreviewParameterProvider<HeroItem> {
+    override val values = sequenceOf(HeroItem(R.string.thor, R.drawable.thor))
 }
 
 @Preview(widthDp = 300, heightDp = 550)
 @Composable
-fun HeroCard(@PreviewParameter(HeroCardProvider::class,1) hero: HeroItem) {
+fun HeroCard(
+    @PreviewParameter(HeroCardProvider::class, 1) hero: HeroItem,
+    navController: NavController?
+) {
     Card(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier
+            .padding(20.dp)
+            .clickable { navController?.navigate(Screen.HeroScreen.route) },
         shape = RoundedCornerShape(16.dp),
         elevation = 15.dp
     ) {
