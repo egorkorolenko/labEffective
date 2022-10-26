@@ -2,8 +2,12 @@ package ru.korolenkoe.lab1effective.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import ru.korolenkoe.lab1effective.R
+import ru.korolenkoe.lab1effective.models.HeroItem
 import ru.korolenkoe.lab1effective.screens.HeroScreen
 import ru.korolenkoe.lab1effective.screens.MainScreen
 
@@ -13,8 +17,25 @@ fun Navigation(navController: NavHostController) {
         composable(route = Screen.MainScreen.route) {
             MainScreen(navController = navController)
         }
-        composable(route = Screen.HeroScreen.route) {
-            HeroScreen(navController = navController)
+        composable(
+            route = Screen.HeroScreen.route + "/{text}/{image}",
+            arguments = listOf(
+                navArgument("text") {
+                    type = NavType.IntType
+                },
+                navArgument("image") {
+                    type = NavType.IntType
+                }
+            )
+        ) { entry ->
+            HeroScreen(
+                navController = navController, HeroItem(
+                    entry.arguments?.get("text") as Int,
+                    entry.arguments?.get("image") as Int
+                )
+            )
         }
     }
 }
+
+

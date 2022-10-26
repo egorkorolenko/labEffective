@@ -51,7 +51,7 @@ fun HeroCard(
     Card(
         modifier = Modifier
             .padding(20.dp)
-            .clickable { navController?.navigate(Screen.HeroScreen.route) },
+            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.text}/${hero.image}") },
         shape = RoundedCornerShape(16.dp),
         elevation = 15.dp
     ) {
