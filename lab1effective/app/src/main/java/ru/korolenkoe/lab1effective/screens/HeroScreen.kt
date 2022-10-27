@@ -125,5 +125,6 @@ fun HeroDescription(text: String) {
 @Preview
 @Composable
 fun HeroScreenPreview() {
-    HeroScreen(null, HeroItem(R.string.thor, R.drawable.thor,"\"https://www.tailorbrands.com/wp-content/uploads/2020/03/Captain-America.jpg\""))
+    HeroScreen(null, HeroItem(R.string.thor, R.drawable.thor,
+        "\"https://www.tailorbrands.com/wp-content/uploads/2020/03/Captain-America.jpg\""))
 }
