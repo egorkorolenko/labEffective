@@ -28,18 +28,20 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.HeroItem
 import ru.korolenkoe.lab1effective.navigation.Screen
-import ru.korolenkoe.lab1effective.screens.HeroScreen
-import ru.korolenkoe.lab1effective.screens.MainScreen
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 private class HeroCardProvider : PreviewParameterProvider<HeroItem> {
-    override val values = sequenceOf(HeroItem(R.string.thor, R.drawable.thor))
+    override val values = sequenceOf(
+        HeroItem(
+            R.string.thor,
+            R.drawable.thor,
+            "https://fabrikbrands.com/wp-content/uploads/Superhero-Logos-18-2048x1280.png"
+        )
+    )
 }
 
 @Preview(widthDp = 300, heightDp = 550)
@@ -48,10 +50,11 @@ fun HeroCard(
     @PreviewParameter(HeroCardProvider::class, 1) hero: HeroItem,
     navController: NavController?
 ) {
+    val encodedUrl = URLEncoder.encode(hero.urlLogo, StandardCharsets.UTF_8.toString())
     Card(
         modifier = Modifier
             .padding(20.dp)
-            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.text}/${hero.image}") },
+            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.text}/${hero.image}/$encodedUrl") },
         shape = RoundedCornerShape(16.dp),
         elevation = 15.dp
     ) {

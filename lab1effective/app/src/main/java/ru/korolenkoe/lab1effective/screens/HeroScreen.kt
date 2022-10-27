@@ -49,7 +49,7 @@ fun HeroScreen(navController: NavController?, heroItem: HeroItem) {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            HeroLogo()
+            HeroLogo(heroItem.urlLogo)
         }
 
         Box(
@@ -82,14 +82,14 @@ fun BackButton(navController: NavController?) {
 }
 
 @Composable
-fun HeroLogo() {
+fun HeroLogo(urlLogo: String) {
     Box(
         modifier = Modifier
             .fillMaxSize(), contentAlignment = Alignment.Center
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data("https://www.tailorbrands.com/wp-content/uploads/2020/03/Captain-America.jpg")
+                .data(urlLogo)
                 .build(),
             placeholder = painterResource(id = R.drawable.placeholder),
             contentScale = ContentScale.Crop,
@@ -125,5 +125,5 @@ fun HeroDescription(text: String) {
 @Preview
 @Composable
 fun HeroScreenPreview() {
-    HeroScreen(null, HeroItem(R.string.thor, R.drawable.thor))
+    HeroScreen(null, HeroItem(R.string.thor, R.drawable.thor,"\"https://www.tailorbrands.com/wp-content/uploads/2020/03/Captain-America.jpg\""))
 }
