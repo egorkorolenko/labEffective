@@ -52,8 +52,12 @@ fun BackButton(navController: NavController?) {
         modifier = Modifier
             .size(50.dp)
             .padding(10.dp)
-            .clickable { navController?.navigate(Screen.MainScreen.route) }) {
-        Image(painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24), contentDescription = "back_button")
+            .clickable { navController?.popBackStack() }
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+            contentDescription = "back_button"
+        )
     }
 }
 
