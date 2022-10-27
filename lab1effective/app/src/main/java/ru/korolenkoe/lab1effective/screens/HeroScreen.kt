@@ -5,6 +5,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -70,14 +73,17 @@ fun HeroScreen(navController: NavController?, heroItem: HeroItem) {
 fun BackButton(navController: NavController?) {
     Box(
         modifier = Modifier
-            .size(50.dp)
+            .size(100.dp)
             .padding(10.dp)
-            .clickable { navController?.popBackStack() }
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-            contentDescription = "back_button",
-        )
+        Button(onClick = { navController?.popBackStack() },
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray) ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                contentDescription = "back_button",
+                modifier = Modifier.size(50.dp)
+            )
+        }
     }
 }
 
