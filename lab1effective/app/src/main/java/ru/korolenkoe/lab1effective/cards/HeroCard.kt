@@ -37,7 +37,7 @@ import java.nio.charset.StandardCharsets
 private class HeroCardProvider : PreviewParameterProvider<HeroItem> {
     override val values = sequenceOf(
         HeroItem(
-            R.string.thor,
+            R.string.thor,R.string.thor,
             R.drawable.thor,
             "https://fabrikbrands.com/wp-content/uploads/Superhero-Logos-18-2048x1280.png"
         )
@@ -54,7 +54,7 @@ fun HeroCard(
     Card(
         modifier = Modifier
             .padding(20.dp)
-            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.text}/${hero.image}/$encodedUrl") },
+            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.text}/${hero.description}/${hero.image}/$encodedUrl") },
         shape = RoundedCornerShape(16.dp),
         elevation = 15.dp
     ) {

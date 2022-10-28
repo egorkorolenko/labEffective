@@ -18,9 +18,12 @@ fun Navigation(navController: NavHostController) {
             MainScreen(navController = navController)
         }
         composable(
-            route = Screen.HeroScreen.route + "/{text}/{image}/{url}",
+            route = Screen.HeroScreen.route + "/{text}/{description}/{image}/{url}",
             arguments = listOf(
                 navArgument("text") {
+                    type = NavType.IntType
+                },
+                navArgument("description") {
                     type = NavType.IntType
                 },
                 navArgument("image") {
@@ -34,6 +37,7 @@ fun Navigation(navController: NavHostController) {
             HeroScreen(
                 navController = navController, HeroItem(
                     entry.arguments?.get("text") as Int,
+                    entry.arguments?.get("description") as Int,
                     entry.arguments?.get("image") as Int,
                     entry.arguments?.get("url") as String
                 )
