@@ -9,10 +9,15 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ru.korolenkoe.lab1effective.screen.MainScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import ru.korolenkoe.lab1effective.navigation.Navigation
+import ru.korolenkoe.lab1effective.screens.MainScreen
 import ru.korolenkoe.lab1effective.ui.theme.Lab1effectiveTheme
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var navHostController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +27,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen()
+                    navHostController = rememberNavController()
+                    Navigation(navHostController)
                 }
             }
         }
@@ -33,5 +39,5 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MainScreen()
+    MainScreen(null)
 }
