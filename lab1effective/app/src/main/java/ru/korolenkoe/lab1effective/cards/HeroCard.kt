@@ -37,17 +37,18 @@ import java.nio.charset.StandardCharsets
 private class HeroCardProvider : PreviewParameterProvider<HeroItem> {
     override val values = sequenceOf(
         HeroItem(
-            R.string.thor,R.string.thor,
+            R.string.thor, R.string.thor,
             R.drawable.thor,
             "https://fabrikbrands.com/wp-content/uploads/Superhero-Logos-18-2048x1280.png"
         )
     )
 }
 
-@Preview(widthDp = 300, heightDp = 550)
+//
+//@Preview(widthDp = 300, heightDp = 550)
 @Composable
 fun HeroCard(
-    @PreviewParameter(HeroCardProvider::class, 1) hero: HeroItem,
+    hero: HeroItem,
     navController: NavController?
 ) {
     val encodedUrl = URLEncoder.encode(hero.urlLogo, StandardCharsets.UTF_8.toString())
@@ -81,4 +82,16 @@ fun HeroCard(
             }
         }
     }
+}
+
+@Preview(widthDp = 300, heightDp = 550)
+@Composable
+fun HeroCardPreview(
+    @PreviewParameter(HeroCardProvider::class, 1) hero: HeroItem,
+    navController: NavController?
+) {
+    HeroCard(
+        hero,
+        navController
+    )
 }
