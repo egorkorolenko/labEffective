@@ -3,10 +3,8 @@ package ru.korolenkoe.lab1effective.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -29,18 +27,20 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ru.korolenkoe.lab1effective.R
+import ru.korolenkoe.lab1effective.listHeroes
 import ru.korolenkoe.lab1effective.models.HeroItem
 
 @Composable
-fun HeroScreen(navController: NavController?, heroItem: HeroItem) {
+fun HeroScreen(navController: NavController?, id: Int) {
     val colorMatrix = ColorMatrix()
+    val heroItem = getHeroById(id)
     colorMatrix.setToSaturation(0f)
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .paint(
-                painterResource(id = heroItem.image),
+                painterResource(id = heroItem!!.image),
                 contentScale = ContentScale.Crop,
                 colorFilter = ColorFilter.colorMatrix(colorMatrix),
                 alpha = 0.3f
@@ -63,10 +63,19 @@ fun HeroScreen(navController: NavController?, heroItem: HeroItem) {
         ) {
             Column {
                 HeroName(stringResource(heroItem.text))
-                HeroDescription(stringResource(heroItem.text))
+                HeroDescription(stringResource(heroItem.description))
             }
         }
     }
+}
+
+fun getHeroById(id: Int): HeroItem? {
+    for (hero in listHeroes) {
+        if (hero.id == id) {
+            return hero
+        }
+    }
+    return null
 }
 
 @Composable
@@ -76,8 +85,10 @@ fun BackButton(navController: NavController?) {
             .size(100.dp)
             .padding(10.dp)
     ) {
-        Button(onClick = { navController?.popBackStack() },
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray) ) {
+        Button(
+            onClick = { navController?.popBackStack() },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray)
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                 contentDescription = "back_button",
@@ -131,6 +142,5 @@ fun HeroDescription(text: String) {
 @Preview
 @Composable
 fun HeroScreenPreview() {
-    HeroScreen(null, HeroItem(R.string.thor,R.string.thor,  R.drawable.thor,
-        "\"https://www.tailorbrands.com/wp-content/uploads/2020/03/Captain-America.jpg\""))
+    HeroScreen(null, listHeroes[1].id)
 }

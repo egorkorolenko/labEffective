@@ -23,37 +23,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import ru.korolenkoe.lab1effective.R
+import ru.korolenkoe.lab1effective.listHeroes
 import ru.korolenkoe.lab1effective.models.HeroItem
 import ru.korolenkoe.lab1effective.navigation.Screen
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
-private class HeroCardProvider : PreviewParameterProvider<HeroItem> {
-    override val values = sequenceOf(
-        HeroItem(
-            R.string.thor, R.string.thor,
-            R.drawable.thor,
-            "https://fabrikbrands.com/wp-content/uploads/Superhero-Logos-18-2048x1280.png"
-        )
-    )
-}
 
 @Composable
 fun HeroCard(
     hero: HeroItem,
     navController: NavController?
 ) {
-    val encodedUrl = URLEncoder.encode(hero.urlLogo, StandardCharsets.UTF_8.toString())
     Card(
         modifier = Modifier
             .padding(20.dp)
-            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.text}/${hero.description}/${hero.image}/$encodedUrl") },
+            .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.id}") },
         shape = RoundedCornerShape(16.dp),
         elevation = 15.dp
     ) {
@@ -85,11 +71,10 @@ fun HeroCard(
 @Preview(widthDp = 300, heightDp = 550)
 @Composable
 fun HeroCardPreview(
-    @PreviewParameter(HeroCardProvider::class, 1) hero: HeroItem,
     navController: NavController?
 ) {
     HeroCard(
-        hero,
+        listHeroes[1],
         navController
     )
 }
