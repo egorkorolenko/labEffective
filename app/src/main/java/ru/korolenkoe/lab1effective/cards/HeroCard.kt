@@ -44,8 +44,6 @@ private class HeroCardProvider : PreviewParameterProvider<HeroItem> {
     )
 }
 
-//
-//@Preview(widthDp = 300, heightDp = 550)
 @Composable
 fun HeroCard(
     hero: HeroItem,
