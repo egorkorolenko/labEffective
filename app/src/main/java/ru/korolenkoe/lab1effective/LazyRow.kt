@@ -46,7 +46,6 @@ fun LazyRowHeroes(navController: NavController?) {
     LazyRow(
         state = lazyListHeroes,
         flingBehavior = rememberSnapperFlingBehavior(lazyListHeroes),
-        contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(40.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
