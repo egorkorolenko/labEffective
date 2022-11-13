@@ -8,43 +8,36 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ru.korolenkoe.lab1effective.OverviewViewModel2
 import ru.korolenkoe.lab1effective.R
-import ru.korolenkoe.lab1effective.listHeroes
-import ru.korolenkoe.lab1effective.models.HeroItem
+import ru.korolenkoe.lab1effective.models.Character
+
 
 @Composable
-fun HeroScreen(navController: NavController?, id: Int) {
-    val colorMatrix = ColorMatrix()
-    val heroItem = getHeroById(id)
-    colorMatrix.setToSaturation(0f)
+fun HeroScreen(navController: NavController?, id: Int, viewModel2: OverviewViewModel2) {
 
+    val hero = getHeroById(id, viewModel2)
+    val colorMatrix = ColorMatrix()
+
+    colorMatrix.setToSaturation(0f)
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .paint(
-                painterResource(id = heroItem!!.image),
-                contentScale = ContentScale.Crop,
-                colorFilter = ColorFilter.colorMatrix(colorMatrix),
-                alpha = 0.3f
-            )
     ) {
         BackButton(navController)
 
@@ -52,30 +45,28 @@ fun HeroScreen(navController: NavController?, id: Int) {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            HeroLogo(heroItem.urlLogo)
+            HeroLogo(hero!!.thumbnail!!.pathSec)
         }
+    }
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            contentAlignment = Alignment.BottomStart
-        ) {
-            Column {
-                HeroName(stringResource(heroItem.text))
-                HeroDescription(stringResource(heroItem.description))
-            }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        contentAlignment = Alignment.BottomStart
+    ) {
+        Column {
+            HeroName(hero!!.name)
+            HeroDescription(hero.description)
         }
     }
 }
 
-fun getHeroById(id: Int): HeroItem? {
-    for (hero in listHeroes) {
-        if (hero.id == id) {
-            return hero
-        }
-    }
-    return null
+
+@Composable
+fun getHeroById(id: Int, viewModel: OverviewViewModel2): Character? {
+    viewModel.getHero(id)
+    return viewModel.hero.collectAsState().value
 }
 
 @Composable
@@ -86,7 +77,7 @@ fun BackButton(navController: NavController?) {
             .padding(10.dp)
     ) {
         Button(
-            onClick = { navController?.popBackStack() },
+            onClick = { navController?.popBackStack()},
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray)
         ) {
             Image(
@@ -139,8 +130,8 @@ fun HeroDescription(text: String) {
 }
 
 
-@Preview
-@Composable
-fun HeroScreenPreview() {
-    HeroScreen(null, listHeroes[1].id)
-}
+//@Preview
+//@Composable
+//fun HeroScreenPreview() {
+//    HeroScreen(null, listHeroes[1].id)
+//}
