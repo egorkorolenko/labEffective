@@ -17,6 +17,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+const val TARGET = 360
+const val STARTANGLIE = 360
+
 @Composable
 fun Indicator(
     size: Dp = 50.dp,
@@ -27,7 +30,7 @@ fun Indicator(
     val transition = rememberInfiniteTransition()
     val currentArcStartAngle by transition.animateValue(
         0,
-        360,
+        TARGET,
         Int.VectorConverter,
         infiniteRepeatable(
             animation = tween(

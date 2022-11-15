@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.korolenkoe.lab1effective.models.Character
 import ru.korolenkoe.lab1effective.models.Thumbnail
+import java.io.IOException
 
 
 enum class MarvelApiStatus { LOADING, ERROR, DONE }
@@ -33,7 +34,8 @@ class ViewModelHeroes : ViewModel() {
                     .data
                     .results
                 _status.value = MarvelApiStatus.DONE
-            } catch (e: Exception) {
+            } catch (e: IOException) {
+                println(e)
                 _status.value = MarvelApiStatus.ERROR
                 _heroes.value = listOf()
             }
@@ -56,7 +58,8 @@ class ViewModelGetHero : ViewModel() {
                 _hero.value = MarvelApi.getService()
                     .getHero(id).data.results[0]
                 _status.value = MarvelApiStatus.DONE
-            } catch (e: Exception) {
+            } catch (e: IOException) {
+                println(e)
                 _status.value = MarvelApiStatus.ERROR
             }
         }
