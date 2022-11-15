@@ -6,13 +6,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import ru.korolenkoe.lab1effective.OverviewViewModel
-import ru.korolenkoe.lab1effective.OverviewViewModel2
+import ru.korolenkoe.lab1effective.network.ViewModelGetHero
+import ru.korolenkoe.lab1effective.network.ViewModelHeroes
 import ru.korolenkoe.lab1effective.screens.HeroScreen
 import ru.korolenkoe.lab1effective.screens.MainScreen
 
 @Composable
-fun Navigation(navController: NavHostController, viewModel: OverviewViewModel, viewModel2: OverviewViewModel2) {
+fun Navigation(navController: NavHostController, viewModel: ViewModelHeroes, viewModel2: ViewModelGetHero) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.MainScreen.route) {
             MainScreen(navController = navController, viewModel)

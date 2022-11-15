@@ -21,14 +21,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ru.korolenkoe.lab1effective.OverviewViewModel
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.models.Thumbnail
 import ru.korolenkoe.lab1effective.navigation.Screen
 
 
@@ -72,14 +73,14 @@ fun HeroCard(
     }
 }
 
-//@Preview(widthDp = 300, heightDp = 550)
-//@Composable
-//fun HeroCardPreview(
-//    navController: NavController?
-//) {
-//    HeroCard(
-//        Character(1,"Heto","Desc", Thumbnail("http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784)",".jpg")),
-//        navController,
-//        viewModel
-//    )
-//}
+@Preview(widthDp = 300, heightDp = 550)
+@Composable
+fun HeroCardPreview(
+    navController: NavController?
+) {
+    HeroCard(
+        Character(1,"Heto","Desc", Thumbnail("drawable/capitan",".jpg")),
+        navController,
+
+    )
+}

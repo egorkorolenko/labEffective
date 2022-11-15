@@ -1,34 +1,75 @@
 package ru.korolenkoe.lab1effective.network
 
-import retrofit2.Call
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Url
-import ru.korolenkoe.lab1effective.models.Character
+import retrofit2.http.Path
 import ru.korolenkoe.lab1effective.models.Response
+import java.math.BigInteger
+import java.security.MessageDigest
+import java.util.*
 
-interface RetrofitApi {
-//
-//    @GET("/v1/public/characters")
-//    suspend fun getListHeroes(
-//        @Query("apikey")apikey:String = Constant.API_KEY,
-//        @Query("ts")ts:String = Constant.ts,
-//        @Query("hash")hash:String = Constant.md5(),
-//    ): Response
-
-//
-//    @GET("/v1/public/characters/?ts=1668014292&apikey=f222f067928c0d48f7c8bcb401fa04a7&hash=b6900c48887e2ef1543293bb64d045c5")
-//    fun getListHeroes(
-////        @Query("apikey")apikey:String = Constant.API_KEY,
-////        @Query("ts")ts:String = Constant.ts,
-////        @Query("hash")hash:String = Constant.md5(),
-//    ): Call<Response>
-
-
-    @GET
+interface MarvelApi {
+    @GET("characters")
     suspend fun getListHeroes(
-        @Url url: String
     ): Response
 
-    @GET
-    suspend fun getHero(@Url url: String): Response
+    @GET("characters/{id}")
+    suspend fun getHero(
+        @Path("id") id: Int
+    ): Response
+
+    companion object {
+        private const val API_KEY = "f222f067928c0d48f7c8bcb401fa04a7"
+        private const val PRIVATE_KEY = "76f73570542abbe7aec661b408e882f8c7a87e2b"
+        private const val BASE_URL = "https://gateway.marvel.com/v1/public/"
+
+        fun getService(): MarvelApi {
+            val logging = HttpLoggingInterceptor()
+            logging.level = HttpLoggingInterceptor.Level.BODY
+
+            val httpClient = OkHttpClient.Builder()
+            httpClient.addInterceptor(logging)
+            httpClient.addInterceptor { chain ->
+                val original = chain.request()
+                val originalHttpUrl = original.url
+                val ts = (Calendar.getInstance(
+                    TimeZone.getTimeZone("UTC")
+                ).timeInMillis / 1000L).toString()
+
+                val url = originalHttpUrl.newBuilder()
+                    .addQueryParameter("apikey", API_KEY)
+                    .addQueryParameter("ts", ts)
+                    .addQueryParameter(
+                        "hash", md5("$ts$PRIVATE_KEY$API_KEY")
+                    )
+                    .build()
+
+                chain.proceed(
+                    original.newBuilder().url(url).build()
+                )
+            }
+
+            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .baseUrl(BASE_URL)
+                .client(httpClient.build())
+                .build()
+
+            return retrofit.create(MarvelApi::class.java)
+        }
+
+        private fun md5(input: String): String {
+            val md = MessageDigest.getInstance("MD5")
+            return BigInteger(1, md.digest(input.toByteArray()))
+                .toString(16)
+                .padStart(32, '0')
+        }
+    }
 }

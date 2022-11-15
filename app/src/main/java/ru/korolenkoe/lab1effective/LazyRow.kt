@@ -13,11 +13,12 @@ import androidx.navigation.NavController
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 import ru.korolenkoe.lab1effective.cards.HeroCard
+import ru.korolenkoe.lab1effective.network.ViewModelHeroes
 
 
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
-fun LazyRowHeroes(navController: NavController?, viewModel: OverviewViewModel) {
+fun LazyRowHeroes(navController: NavController?, viewModel: ViewModelHeroes) {
     val lazyListHeroes = rememberLazyListState()
     val heroes = viewModel.heroes.collectAsState().value
 

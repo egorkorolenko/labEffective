@@ -18,18 +18,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ru.korolenkoe.lab1effective.OverviewViewModel2
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 
 
 @Composable
-fun HeroScreen(navController: NavController?, id: Int, viewModel2: OverviewViewModel2) {
+fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero) {
 
     val hero = getHeroById(id, viewModel2)
     val colorMatrix = ColorMatrix()
@@ -64,7 +65,7 @@ fun HeroScreen(navController: NavController?, id: Int, viewModel2: OverviewViewM
 
 
 @Composable
-fun getHeroById(id: Int, viewModel: OverviewViewModel2): Character? {
+fun getHeroById(id: Int, viewModel: ViewModelGetHero): Character? {
     viewModel.getHero(id)
     return viewModel.hero.collectAsState().value
 }
@@ -77,7 +78,7 @@ fun BackButton(navController: NavController?) {
             .padding(10.dp)
     ) {
         Button(
-            onClick = { navController?.popBackStack()},
+            onClick = { navController?.popBackStack() },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray)
         ) {
             Image(
@@ -130,8 +131,8 @@ fun HeroDescription(text: String) {
 }
 
 
-//@Preview
-//@Composable
-//fun HeroScreenPreview() {
-//    HeroScreen(null, listHeroes[1].id)
-//}
+@Preview
+@Composable
+fun HeroScreenPreview() {
+//    HeroScreen(null, listHeroes[1].id,null)
+}
