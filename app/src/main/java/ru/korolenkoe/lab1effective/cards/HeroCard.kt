@@ -46,7 +46,7 @@ fun HeroCard(
         shape = RoundedCornerShape(16.dp),
         elevation = 15.dp
     ) {
-        Box(Modifier.width(350.dp)) {
+        Box(Modifier.width(350.dp), contentAlignment = Alignment.Center) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(hero.thumbnail!!.pathSec)

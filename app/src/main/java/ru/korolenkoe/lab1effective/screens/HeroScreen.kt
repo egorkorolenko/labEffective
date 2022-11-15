@@ -1,5 +1,6 @@
 package ru.korolenkoe.lab1effective.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -24,16 +25,28 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ru.korolenkoe.lab1effective.Indicator
 import ru.korolenkoe.lab1effective.R
+import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.models.Character
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero) {
 
     val hero = getHeroById(id, viewModel2)
     val colorMatrix = ColorMatrix()
+
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .padding(130.dp), contentAlignment = Alignment.Center) {
+        if (viewModel2.status.value.name == "LOADING")
+            Indicator()
+    }
+
 
     colorMatrix.setToSaturation(0f)
     Box(
@@ -67,6 +80,9 @@ fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetH
 @Composable
 fun getHeroById(id: Int, viewModel: ViewModelGetHero): Character? {
     viewModel.getHero(id)
+    if(viewModel.status.collectAsState().value.name=="ERROR"){
+        ErrorCard()
+    }
     return viewModel.hero.collectAsState().value
 }
 
