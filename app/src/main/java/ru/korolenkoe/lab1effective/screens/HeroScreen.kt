@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -29,60 +30,69 @@ import ru.korolenkoe.lab1effective.Indicator
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.models.Thumbnail
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero) {
-
-    val hero = getHeroById(id, viewModel2)
-    val colorMatrix = ColorMatrix()
+fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero = ViewModelGetHero()) {
 
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(130.dp), contentAlignment = Alignment.Center) {
+            .padding(130.dp), contentAlignment = Alignment.Center
+    ) {
         if (viewModel2.status.value.name == "LOADING")
             Indicator()
     }
 
+    val hero = getHeroById(id, viewModel2)
+    val colorMatrix = ColorMatrix()
 
-    colorMatrix.setToSaturation(0f)
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        BackButton(navController)
+    BackButton(navController)
+
+    if (viewModel2.status.collectAsState().value.name == "ERROR") {
+        ErrorCard()
+    } else {
+        colorMatrix.setToSaturation(0f)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                HeroLogo(hero!!.thumbnail!!.pathSec)
+            }
+        }
 
         Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            contentAlignment = Alignment.BottomStart
         ) {
-            HeroLogo(hero!!.thumbnail!!.pathSec)
-        }
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        contentAlignment = Alignment.BottomStart
-    ) {
-        Column {
-            HeroName(hero!!.name)
-            HeroDescription(hero.description)
+            Column {
+                HeroName(hero!!.name)
+                HeroDescription(hero.description)
+            }
         }
     }
 }
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun getHeroById(id: Int, viewModel: ViewModelGetHero): Character? {
-    viewModel.getHero(id)
-    if(viewModel.status.collectAsState().value.name=="ERROR"){
+    val status = viewModel.status.collectAsState().value
+
+    if (status.name == "ERROR") {
         ErrorCard()
     }
+    viewModel.getHero(id)
+
     return viewModel.hero.collectAsState().value
 }
 
@@ -94,7 +104,9 @@ fun BackButton(navController: NavController?) {
             .padding(10.dp)
     ) {
         Button(
-            onClick = { navController?.popBackStack() },
+            onClick = {
+                navController?.popBackStack()
+            },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray)
         ) {
             Image(
@@ -116,7 +128,6 @@ fun HeroLogo(urlLogo: String) {
             model = ImageRequest.Builder(LocalContext.current)
                 .data(urlLogo)
                 .build(),
-            placeholder = painterResource(id = R.drawable.placeholder),
             contentScale = ContentScale.Crop,
             contentDescription = null,
             modifier = Modifier.border(BorderStroke(4.dp, Color.Red))
@@ -146,9 +157,8 @@ fun HeroDescription(text: String) {
     )
 }
 
-
 @Preview
 @Composable
 fun HeroScreenPreview() {
-//    HeroScreen(null, listHeroes[1].id,null)
+//    ClearHeroScreen()
 }

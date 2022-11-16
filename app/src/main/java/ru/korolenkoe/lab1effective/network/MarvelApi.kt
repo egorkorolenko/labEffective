@@ -13,6 +13,8 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*
 
+private var retrofit: Retrofit? = null
+
 interface MarvelApi {
     @GET("characters")
     suspend fun getListHeroes(
@@ -24,8 +26,8 @@ interface MarvelApi {
     ): Response
 
     companion object {
-        private const val API_KEY = "f222f067928c0d48f7c8bcb401fa04a7"
-        private const val PRIVATE_KEY = "76f73570542abbe7aec661b408e882f8c7a87e2b"
+        private const val API_KEY = "3ca8e60692cb647d4ae4fdc47b7786bb"
+        private const val PRIVATE_KEY = "7298dd11ff1484e98616c33caf7c4aa5977936b5"
         private const val BASE_URL = "https://gateway.marvel.com/v1/public/"
 
         fun getService(): MarvelApi {
@@ -56,13 +58,14 @@ interface MarvelApi {
 
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-            val retrofit = Retrofit.Builder()
+            if (retrofit==null)
+            retrofit = Retrofit.Builder()
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .baseUrl(BASE_URL)
                 .client(httpClient.build())
                 .build()
 
-            return retrofit.create(MarvelApi::class.java)
+            return retrofit!!.create(MarvelApi::class.java)
         }
 
         private fun md5(input: String): String {

@@ -12,7 +12,8 @@ import ru.korolenkoe.lab1effective.screens.HeroScreen
 import ru.korolenkoe.lab1effective.screens.MainScreen
 
 @Composable
-fun Navigation(navController: NavHostController, viewModel: ViewModelHeroes, viewModel2: ViewModelGetHero) {
+fun Navigation(navController: NavHostController, viewModel: ViewModelHeroes,
+               viewModel2: ViewModelGetHero= ViewModelGetHero()) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.MainScreen.route) {
             MainScreen(navController = navController, viewModel)

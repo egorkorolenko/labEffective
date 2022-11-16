@@ -25,7 +25,7 @@ class ViewModelHeroes : ViewModel() {
         getHeroes()
     }
 
-   private fun getHeroes() {
+    private fun getHeroes() {
         viewModelScope.launch {
             try {
                 _status.value = MarvelApiStatus.LOADING
@@ -45,15 +45,16 @@ class ViewModelHeroes : ViewModel() {
 
 class ViewModelGetHero : ViewModel() {
 
-    private val _status = MutableStateFlow(MarvelApiStatus.LOADING)
+    private var _status = MutableStateFlow(MarvelApiStatus.LOADING)
     val status: StateFlow<MarvelApiStatus>
         get() = _status
 
-    private val _hero = MutableStateFlow(Character(1,"Error","Error", Thumbnail("","")))
+    private var _hero = MutableStateFlow(Character(1, "Error", "Error", Thumbnail("", "")))
     val hero: StateFlow<Character?> = _hero
 
-    fun getHero(id:Int){
+    fun getHero(id: Int) {
         viewModelScope.launch {
+            _status.value = MarvelApiStatus.LOADING
             try {
                 _hero.value = MarvelApi.getService()
                     .getHero(id).data.results[0]
@@ -64,4 +65,5 @@ class ViewModelGetHero : ViewModel() {
             }
         }
     }
+
 }

@@ -33,7 +33,6 @@ fun LazyRowHeroes(navController: NavController?, viewModel: ViewModelHeroes) {
     }
     if (status.value.name == "ERROR")
         ErrorCard()
-
     LazyRow(
         state = lazyListHeroes,
         flingBehavior = rememberSnapperFlingBehavior(lazyListHeroes),
