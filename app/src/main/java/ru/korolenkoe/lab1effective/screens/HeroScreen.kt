@@ -1,5 +1,6 @@
 package ru.korolenkoe.lab1effective.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -8,51 +9,63 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ru.korolenkoe.lab1effective.Indicator
 import ru.korolenkoe.lab1effective.R
-import ru.korolenkoe.lab1effective.listHeroes
-import ru.korolenkoe.lab1effective.models.HeroItem
+import ru.korolenkoe.lab1effective.cards.ErrorCard
+import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.models.Thumbnail
+import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 
+
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun HeroScreen(navController: NavController?, id: Int) {
-    val colorMatrix = ColorMatrix()
-    val heroItem = getHeroById(id)
-    colorMatrix.setToSaturation(0f)
+fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero = ViewModelGetHero()) {
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(
-                painterResource(id = heroItem!!.image),
-                contentScale = ContentScale.Crop,
-                colorFilter = ColorFilter.colorMatrix(colorMatrix),
-                alpha = 0.3f
-            )
+        Modifier
+            .fillMaxWidth()
+            .padding(130.dp), contentAlignment = Alignment.Center
     ) {
-        BackButton(navController)
+        if (viewModel2.status.value.name == "LOADING")
+            Indicator()
+    }
 
+    val hero = getHeroById(id, viewModel2)
+    val colorMatrix = ColorMatrix()
+
+    BackButton(navController)
+
+    if (viewModel2.status.collectAsState().value.name == "ERROR") {
+        ErrorCard()
+    } else {
+        colorMatrix.setToSaturation(0f)
         Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            modifier = Modifier
+                .fillMaxSize()
         ) {
-            HeroLogo(heroItem.urlLogo)
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                HeroLogo(hero!!.thumbnail!!.pathSec)
+            }
         }
 
         Box(
@@ -62,20 +75,25 @@ fun HeroScreen(navController: NavController?, id: Int) {
             contentAlignment = Alignment.BottomStart
         ) {
             Column {
-                HeroName(stringResource(heroItem.text))
-                HeroDescription(stringResource(heroItem.description))
+                HeroName(hero!!.name)
+                HeroDescription(hero.description)
             }
         }
     }
 }
 
-fun getHeroById(id: Int): HeroItem? {
-    for (hero in listHeroes) {
-        if (hero.id == id) {
-            return hero
-        }
+
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun getHeroById(id: Int, viewModel: ViewModelGetHero): Character? {
+    val status = viewModel.status.collectAsState().value
+
+    if (status.name == "ERROR") {
+        ErrorCard()
     }
-    return null
+    viewModel.getHero(id)
+
+    return viewModel.hero.collectAsState().value
 }
 
 @Composable
@@ -86,7 +104,9 @@ fun BackButton(navController: NavController?) {
             .padding(10.dp)
     ) {
         Button(
-            onClick = { navController?.popBackStack() },
+            onClick = {
+                navController?.popBackStack()
+            },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray)
         ) {
             Image(
@@ -108,7 +128,6 @@ fun HeroLogo(urlLogo: String) {
             model = ImageRequest.Builder(LocalContext.current)
                 .data(urlLogo)
                 .build(),
-            placeholder = painterResource(id = R.drawable.placeholder),
             contentScale = ContentScale.Crop,
             contentDescription = null,
             modifier = Modifier.border(BorderStroke(4.dp, Color.Red))
@@ -138,9 +157,8 @@ fun HeroDescription(text: String) {
     )
 }
 
-
 @Preview
 @Composable
 fun HeroScreenPreview() {
-    HeroScreen(null, listHeroes[1].id)
+//    ClearHeroScreen()
 }
