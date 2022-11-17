@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import ru.korolenkoe.lab1effective.db.CharacterApplication
 import ru.korolenkoe.lab1effective.models.Character
 import ru.korolenkoe.lab1effective.models.Thumbnail
 import java.io.IOException
@@ -21,7 +22,9 @@ class ViewModelHeroes : ViewModel() {
     val status: StateFlow<MarvelApiStatus>
         get() = _status
 
-    init {
+    private val characterApplication = CharacterApplication()
+
+init {
         getHeroes()
     }
 
@@ -34,6 +37,9 @@ class ViewModelHeroes : ViewModel() {
                     .data
                     .results
                 _status.value = MarvelApiStatus.DONE
+                if(_status.value.name=="DONE"){
+                    characterApplication.insert(_heroes.value)
+                }
             } catch (e: IOException) {
                 println(e)
                 _status.value = MarvelApiStatus.ERROR
