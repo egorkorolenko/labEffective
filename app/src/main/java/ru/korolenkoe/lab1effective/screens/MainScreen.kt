@@ -14,15 +14,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ru.korolenkoe.lab1effective.LazyRowHeroes
 import ru.korolenkoe.lab1effective.R
+import ru.korolenkoe.lab1effective.network.ViewModelHeroes
 
 @Composable
-fun MainScreen(navController: NavController?) {
+fun MainScreen(navController: NavController?, viewModel: ViewModelHeroes) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         MarvelLogo()
         ChooseYourHeroText()
-        LazyRowHeroes(navController)
+        LazyRowHeroes(navController, viewModel)
     }
 }
 
