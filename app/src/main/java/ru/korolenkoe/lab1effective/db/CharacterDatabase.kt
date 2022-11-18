@@ -4,10 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import kotlinx.coroutines.CoroutineScope
+import ru.korolenkoe.lab1effective.ThumbnailConverter
 import ru.korolenkoe.lab1effective.dao.CharacterDao
 import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.models.Thumbnail
 
 @Database(entities = [Character::class], version = 1)
+@TypeConverters(ThumbnailConverter::class)
 abstract class CharacterDatabase : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDao

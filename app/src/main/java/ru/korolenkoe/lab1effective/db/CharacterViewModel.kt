@@ -16,7 +16,7 @@ class CharacterViewModel(private val repository: CharacterRepository):ViewModel(
         repository.insertCharacter(character)
     }
 
-    suspend fun insertAllCharacters(characters: List<Character>) = viewModelScope.launch {
+    fun insertAllCharacters(characters: List<Character>) = viewModelScope.launch {
         repository.insertAllCharacters(characters)
     }
 
@@ -32,7 +32,7 @@ class CharacterViewModel(private val repository: CharacterRepository):ViewModel(
         repository.deleteAll()
     }
 
-    class WordViewModelFactory(private val repository: CharacterRepository) : ViewModelProvider.Factory {
+    class CharacterViewModelFactory(private val repository: CharacterRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(Character::class.java)) {
                 @Suppress("UNCHECKED_CAST")

@@ -6,17 +6,21 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import ru.korolenkoe.lab1effective.db.CharacterViewModel
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 import ru.korolenkoe.lab1effective.network.ViewModelHeroes
 import ru.korolenkoe.lab1effective.screens.HeroScreen
 import ru.korolenkoe.lab1effective.screens.MainScreen
 
 @Composable
-fun Navigation(navController: NavHostController, viewModel: ViewModelHeroes,
-               viewModel2: ViewModelGetHero= ViewModelGetHero()) {
+fun Navigation(
+    navController: NavHostController, viewModel: ViewModelHeroes,
+    viewModel2: ViewModelGetHero = ViewModelGetHero(),
+    characterViewModel: CharacterViewModel
+) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.MainScreen.route) {
-            MainScreen(navController = navController, viewModel)
+            MainScreen(navController = navController, viewModel, characterViewModel)
         }
         composable(
             route = Screen.HeroScreen.route + "/{id}",

@@ -1,23 +1,25 @@
 package ru.korolenkoe.lab1effective.repository
 
 import androidx.annotation.WorkerThread
+import kotlinx.coroutines.flow.Flow
 import ru.korolenkoe.lab1effective.dao.CharacterDao
 import ru.korolenkoe.lab1effective.models.Character
 
 class CharacterRepository(private val characterDao: CharacterDao) {
 
-    val readAll: List<Character> = characterDao.getAll()
+    val readAll: Flow<List<Character>> = characterDao.getAll()
 
     @WorkerThread
-    suspend fun insertCharacter(character: Character) {
+    fun insertCharacter(character: Character) {
         characterDao.insertCharacter(character)
     }
 
-    suspend fun insertAllCharacters(characters: List<Character>) {
+    @WorkerThread
+    fun insertAllCharacters(characters: List<Character>) {
         characterDao.insertAllCharacters(characters)
     }
 
-    fun getAll(): List<Character> {
+    fun getAll(): Flow<List<Character>> {
         return characterDao.getAll()
     }
 

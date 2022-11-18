@@ -22,7 +22,6 @@ class ViewModelHeroes : ViewModel() {
     val status: StateFlow<MarvelApiStatus>
         get() = _status
 
-    private val characterApplication = CharacterApplication()
 
 init {
         getHeroes()
@@ -37,15 +36,16 @@ init {
                     .data
                     .results
                 _status.value = MarvelApiStatus.DONE
-                if(_status.value.name=="DONE"){
-                    characterApplication.insert(_heroes.value)
-                }
             } catch (e: IOException) {
                 println(e)
                 _status.value = MarvelApiStatus.ERROR
                 _heroes.value = listOf()
             }
         }
+    }
+
+    fun get(characterApplication: CharacterApplication?): CharacterApplication? {
+        return characterApplication
     }
 }
 

@@ -3,8 +3,10 @@ package ru.korolenkoe.lab1effective.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import ru.korolenkoe.lab1effective.ThumbnailConverter
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "characters")
@@ -21,17 +23,18 @@ data class Character(
     val description: String,
     @Json(name = "thumbnail")
     @ColumnInfo(name = "thumbnail")
+    @TypeConverters(ThumbnailConverter::class)
     val thumbnail: Thumbnail?
 )
 
 @JsonClass(generateAdapter = true)
-@Entity
+//@Entity
 data class Thumbnail(
     @Json(name = "path")
-    @ColumnInfo(name = "path")
+//    @ColumnInfo(name = "path")
     val path: String,
     @Json(name = "extension")
-    @ColumnInfo(name = "extension")
+//    @ColumnInfo(name = "extension")
     val extension: String
 ) {
     val pathSec: String
