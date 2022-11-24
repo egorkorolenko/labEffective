@@ -15,7 +15,4 @@ class ThumbnailConverter {
         val path = string.split('.')
         return Thumbnail(path[0],path[1])
     }
-
-
-
 }
