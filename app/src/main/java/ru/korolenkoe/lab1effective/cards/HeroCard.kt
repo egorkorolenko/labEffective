@@ -2,7 +2,10 @@
 
 package ru.korolenkoe.lab1effective.cards
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,6 +35,8 @@ import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.models.Character
 import ru.korolenkoe.lab1effective.models.Thumbnail
 import ru.korolenkoe.lab1effective.navigation.Screen
+import ru.korolenkoe.lab1effective.network.ConnectionState
+import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 
 @Composable
@@ -38,6 +44,8 @@ fun HeroCard(
     hero: Character,
     navController: NavController?,
 ) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .padding(20.dp)
@@ -47,14 +55,21 @@ fun HeroCard(
         elevation = 15.dp
     ) {
         Box(Modifier.width(350.dp), contentAlignment = Alignment.Center) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(hero.thumbnail!!.pathSec)
-                    .build(),
-                placeholder = painterResource(id = R.drawable.placeholder),
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-            )
+            if (context.currentConnectivityState == ConnectionState.Available) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(hero.thumbnail!!.pathSec)
+                        .build(),
+                    placeholder = painterResource(id = R.drawable.placeholder),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                )
+            } else {
+                val bitmapString = hero.thumbnail?.path!!
+                val imageBytes = Base64.decode(bitmapString, 0)
+                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                Image(bitmap =bitmap.asImageBitmap(), contentDescription ="")
+            }
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -79,8 +94,8 @@ fun HeroCardPreview(
     navController: NavController?
 ) {
     HeroCard(
-        Character(1,"Heto","Desc", Thumbnail("drawable/capitan",".jpg")),
+        Character(1, "Heto", "Desc", Thumbnail("drawable/capitan", ".jpg")),
         navController,
 
-    )
+        )
 }

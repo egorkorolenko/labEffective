@@ -22,7 +22,7 @@ data class Character(
     @ColumnInfo(name = "description")
     val description: String,
     @Json(name = "thumbnail")
-    @ColumnInfo(name = "thumbnail", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "thumbnail", typeAffinity = ColumnInfo.BLOB)
     @TypeConverters(ThumbnailConverter::class)
     val thumbnail: Thumbnail?
 )
