@@ -1,5 +1,6 @@
 package ru.korolenkoe.lab1effective
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,8 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ru.korolenkoe.lab1effective.db.CharacterApplication
-import ru.korolenkoe.lab1effective.db.CharacterViewModel
+import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.navigation.Navigation
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 import ru.korolenkoe.lab1effective.network.ViewModelHeroes
@@ -37,15 +37,11 @@ class MainActivity : ComponentActivity() {
 
                     val context = LocalContext.current
 
-                    val characterApplication = CharacterApplication(context)
-
-                    val characterViewModel: CharacterViewModel by viewModels {
-                        CharacterViewModel.CharacterViewModelFactory((context.applicationContext as CharacterApplication).repository)
+                    val characterDBViewModel: CharacterDBViewModel by viewModels {
+                        CharacterDBViewModel.CharacterViewModelFactory((context.applicationContext as Application))
                     }
-//                    val characterViewModel = CharacterViewModel()
-
                     navHostController = rememberNavController()
-                    Navigation(navHostController, viewModel, viewModel2, characterViewModel)
+                    Navigation(navHostController, viewModel, viewModel2, characterDBViewModel)
                 }
             }
         }

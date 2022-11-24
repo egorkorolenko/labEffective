@@ -28,13 +28,10 @@ data class Character(
 )
 
 @JsonClass(generateAdapter = true)
-//@Entity
 data class Thumbnail(
     @Json(name = "path")
-//    @ColumnInfo(name = "path")
     val path: String,
     @Json(name = "extension")
-//    @ColumnInfo(name = "extension")
     val extension: String
 ) {
     val pathSec: String

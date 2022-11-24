@@ -22,37 +22,43 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ru.korolenkoe.lab1effective.Indicator
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.cards.ErrorCard
+import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.models.Character
-import ru.korolenkoe.lab1effective.models.Thumbnail
+import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
+import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero = ViewModelGetHero()) {
+fun HeroScreen(
+    navController: NavController?,
+    id: Int,
+    viewModel: ViewModelGetHero = ViewModelGetHero(),
+    characterDBViewModel: CharacterDBViewModel
+) {
 
     Box(
         Modifier
             .fillMaxWidth()
             .padding(130.dp), contentAlignment = Alignment.Center
     ) {
-        if (viewModel2.status.value.name == "LOADING")
+        if (viewModel.status.value.name == "LOADING")
             Indicator()
     }
 
-    val hero = getHeroById(id, viewModel2)
+    val hero = getHeroById(id, viewModel, characterDBViewModel)
     val colorMatrix = ColorMatrix()
 
     BackButton(navController)
 
-    if (viewModel2.status.collectAsState().value.name == "ERROR") {
+    if (viewModel.status.collectAsState().value.name == "ERROR") {
         ErrorCard()
     } else {
         colorMatrix.setToSaturation(0f)
@@ -85,15 +91,28 @@ fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetH
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun getHeroById(id: Int, viewModel: ViewModelGetHero): Character? {
+fun getHeroById(
+    id: Int,
+    viewModel: ViewModelGetHero,
+    characterDBViewModel: CharacterDBViewModel
+): Character {
     val status = viewModel.status.collectAsState().value
+    val context = LocalContext.current
 
-    if (status.name == "ERROR") {
-        ErrorCard()
+    val character: Character
+
+    if (context.currentConnectivityState == ConnectionState.Available) {
+        if (status.name == "ERROR") {
+            ErrorCard()
+        }
+        viewModel.getHero(id)
+        character = viewModel.hero.collectAsState().value!!
+    } else {
+        characterDBViewModel.getCharacterById(id)
+        character = characterDBViewModel.hero.collectAsState().value!!
     }
-    viewModel.getHero(id)
 
-    return viewModel.hero.collectAsState().value
+    return character
 }
 
 @Composable

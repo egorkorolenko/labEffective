@@ -1,6 +1,5 @@
 package ru.korolenkoe.lab1effective
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,46 +13,54 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
-import kotlinx.coroutines.launch
 import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.cards.HeroCard
-import ru.korolenkoe.lab1effective.db.CharacterApplication
-import ru.korolenkoe.lab1effective.db.CharacterDatabase
-import ru.korolenkoe.lab1effective.db.CharacterViewModel
+import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.ViewModelHeroes
-import ru.korolenkoe.lab1effective.repository.CharacterRepository
+import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 
-@SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalSnapperApi::class)
 @Composable
 fun LazyRowHeroes(
     navController: NavController?,
     viewModel: ViewModelHeroes,
-    characterViewModel: CharacterViewModel
+    characterDBViewModel: CharacterDBViewModel
 ) {
-    val lazyListHeroes = rememberLazyListState()
-    val heroes = viewModel.heroes.collectAsState().value
-    val status = viewModel.status.collectAsState()
+    val context = LocalContext.current
 
-   characterViewModel.insertAllCharacters(heroes)
-
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .padding(30.dp), contentAlignment = Alignment.Center
-    ) {
-        if (status.value.name == "LOADING")
-            Indicator()
+    if (context.currentConnectivityState == ConnectionState.Available) {
+        val heroes = viewModel.heroes.collectAsState().value
+        val status = viewModel.status.collectAsState()
+        if (status.value.name == "DONE")
+            characterDBViewModel.insertAllCharacters(heroes)
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .padding(30.dp), contentAlignment = Alignment.Center
+        ) {
+            if (status.value.name == "LOADING")
+                Indicator()
+        }
+        if (status.value.name == "ERROR") {
+            ErrorCard()
+        } else {
+            getHereLazyRow(characters = heroes, navController = navController)
+        }
+    } else {
+        val list = characterDBViewModel.readAll.collectAsState(emptyList())
+        getHereLazyRow(characters = list.value, navController = navController)
     }
-    if (status.value.name == "ERROR")
-        ErrorCard()
+}
 
+@OptIn(ExperimentalSnapperApi::class)
+@Composable
+fun getHereLazyRow(characters: List<Character>, navController: NavController?) {
+    val lazyListHeroes = rememberLazyListState()
 
     LazyRow(
         state = lazyListHeroes,
@@ -61,7 +68,7 @@ fun LazyRowHeroes(
         horizontalArrangement = Arrangement.spacedBy(40.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        items(heroes) { index ->
+        items(characters) { index ->
             HeroCard(hero = index, navController)
         }
     }

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ru.korolenkoe.lab1effective.db.CharacterApplication
 import ru.korolenkoe.lab1effective.models.Character
 import ru.korolenkoe.lab1effective.models.Thumbnail
 import java.io.IOException
@@ -42,10 +41,6 @@ init {
                 _heroes.value = listOf()
             }
         }
-    }
-
-    fun get(characterApplication: CharacterApplication?): CharacterApplication? {
-        return characterApplication
     }
 }
 
