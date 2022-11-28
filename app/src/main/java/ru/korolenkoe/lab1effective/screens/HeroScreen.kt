@@ -1,6 +1,8 @@
 package ru.korolenkoe.lab1effective.screens
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -14,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -22,37 +25,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ru.korolenkoe.lab1effective.Indicator
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.cards.ErrorCard
+import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.models.Character
-import ru.korolenkoe.lab1effective.models.Thumbnail
+import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
+import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetHero = ViewModelGetHero()) {
+fun HeroScreen(
+    navController: NavController?,
+    id: Int,
+    viewModel: ViewModelGetHero = ViewModelGetHero(),
+    characterDBViewModel: CharacterDBViewModel
+) {
 
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .padding(130.dp), contentAlignment = Alignment.Center
-    ) {
-        if (viewModel2.status.value.name == "LOADING")
-            Indicator()
-    }
-
-    val hero = getHeroById(id, viewModel2)
+    val hero = getHeroById(id, viewModel, characterDBViewModel)
     val colorMatrix = ColorMatrix()
 
     BackButton(navController)
 
-    if (viewModel2.status.collectAsState().value.name == "ERROR") {
+    if (viewModel.status.collectAsState().value.name == "ERROR") {
         ErrorCard()
     } else {
         colorMatrix.setToSaturation(0f)
@@ -64,7 +63,7 @@ fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetH
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                HeroLogo(hero!!.thumbnail!!.pathSec)
+                HeroLogo(hero)
             }
         }
 
@@ -85,15 +84,28 @@ fun HeroScreen(navController: NavController?, id: Int, viewModel2: ViewModelGetH
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun getHeroById(id: Int, viewModel: ViewModelGetHero): Character? {
+fun getHeroById(
+    id: Int,
+    viewModel: ViewModelGetHero,
+    characterDBViewModel: CharacterDBViewModel
+): Character {
     val status = viewModel.status.collectAsState().value
+    val context = LocalContext.current
 
-    if (status.name == "ERROR") {
-        ErrorCard()
+    val character: Character
+
+    if (context.currentConnectivityState == ConnectionState.Available) {
+        if (status.name == "ERROR") {
+            ErrorCard()
+        }
+        viewModel.getHero(id)
+        character = viewModel.hero.collectAsState().value!!
+    } else {
+        characterDBViewModel.getCharacterById(id)
+        character = characterDBViewModel.hero.collectAsState().value!!
     }
-    viewModel.getHero(id)
 
-    return viewModel.hero.collectAsState().value
+    return character
 }
 
 @Composable
@@ -119,19 +131,30 @@ fun BackButton(navController: NavController?) {
 }
 
 @Composable
-fun HeroLogo(urlLogo: String) {
+fun HeroLogo(character: Character) {
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize(), contentAlignment = Alignment.Center
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(urlLogo)
-                .build(),
-            contentScale = ContentScale.Crop,
-            contentDescription = null,
-            modifier = Modifier.border(BorderStroke(4.dp, Color.Red))
-        )
+        if (context.currentConnectivityState == ConnectionState.Available) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(character.thumbnail?.pathSec)
+                    .build(),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier.border(BorderStroke(4.dp, Color.Red))
+            )
+        } else {
+            if (character.id != 1) {
+                val bitmapString = character.thumbnail?.path!!
+                val imageBytes = Base64.decode(bitmapString, 0)
+                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                Image(bitmap = bitmap.asImageBitmap(), contentDescription = "")
+            }
+        }
     }
 }
 

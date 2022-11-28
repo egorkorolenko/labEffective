@@ -14,6 +14,7 @@ import java.security.MessageDigest
 import java.util.*
 
 private var retrofit: Retrofit? = null
+private var moshi: Moshi? = null
 
 interface MarvelApi {
     @GET("characters")
@@ -56,14 +57,15 @@ interface MarvelApi {
                 )
             }
 
-            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+            if (moshi == null)
+            moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-            if (retrofit==null)
-            retrofit = Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .baseUrl(BASE_URL)
-                .client(httpClient.build())
-                .build()
+            if (retrofit == null)
+                retrofit = Retrofit.Builder()
+                    .addConverterFactory(MoshiConverterFactory.create(moshi!!))
+                    .baseUrl(BASE_URL)
+                    .client(httpClient.build())
+                    .build()
 
             return retrofit!!.create(MarvelApi::class.java)
         }

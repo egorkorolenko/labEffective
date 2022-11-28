@@ -21,7 +21,8 @@ class ViewModelHeroes : ViewModel() {
     val status: StateFlow<MarvelApiStatus>
         get() = _status
 
-    init {
+
+init {
         getHeroes()
     }
 

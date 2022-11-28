@@ -1,5 +1,6 @@
 package ru.korolenkoe.lab1effective
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,13 +10,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.navigation.Navigation
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 import ru.korolenkoe.lab1effective.network.ViewModelHeroes
-import ru.korolenkoe.lab1effective.screens.MainScreen
 import ru.korolenkoe.lab1effective.ui.theme.Lab1effectiveTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,10 +32,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val viewModel: ViewModelHeroes by viewModels()
                     val viewModel2: ViewModelGetHero by viewModels()
+                    val viewModel: ViewModelHeroes by viewModels()
+
+                    val context = LocalContext.current
+
+                    val characterDBViewModel: CharacterDBViewModel by viewModels {
+                        CharacterDBViewModel.CharacterViewModelFactory((context.applicationContext as Application))
+                    }
                     navHostController = rememberNavController()
-                    Navigation(navHostController, viewModel, viewModel2)
+                    Navigation(navHostController, viewModel, viewModel2, characterDBViewModel)
                 }
             }
         }
