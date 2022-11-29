@@ -1,4 +1,4 @@
-package ru.korolenkoe.lab1effective
+package ru.korolenkoe.lab1effective.utils
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas

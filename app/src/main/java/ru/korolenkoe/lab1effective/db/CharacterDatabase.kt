@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ru.korolenkoe.lab1effective.ThumbnailConverter
 import ru.korolenkoe.lab1effective.dao.CharacterDao
 import ru.korolenkoe.lab1effective.entities.Character
+import ru.korolenkoe.lab1effective.utils.ThumbnailConverter
 
 @Database(entities = [Character::class], version = 1)
 @TypeConverters(ThumbnailConverter::class)

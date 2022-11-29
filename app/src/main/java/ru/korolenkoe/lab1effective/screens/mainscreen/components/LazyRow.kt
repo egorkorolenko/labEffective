@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
-import ru.korolenkoe.lab1effective.Indicator
+import ru.korolenkoe.lab1effective.utils.Indicator
 import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.cards.HeroCard
 import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.CharacterDBViewModel

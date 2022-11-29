@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import ru.korolenkoe.lab1effective.ThumbnailConverter
+import ru.korolenkoe.lab1effective.utils.ThumbnailConverter
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "characters")
