@@ -15,12 +15,12 @@ import androidx.navigation.NavController
 import ru.korolenkoe.lab1effective.LazyRowHeroes
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
-import ru.korolenkoe.lab1effective.network.ViewModelHeroes
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
 
 @Composable
 fun MainScreen(
     navController: NavController?,
-    viewModel: ViewModelHeroes,
+    viewModel: ViewModelGetHeroesApi,
     characterDBViewModel: CharacterDBViewModel
 ) {
     Column(

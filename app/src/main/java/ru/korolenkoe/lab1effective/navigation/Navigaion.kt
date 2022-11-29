@@ -7,15 +7,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
-import ru.korolenkoe.lab1effective.network.ViewModelGetHero
-import ru.korolenkoe.lab1effective.network.ViewModelHeroes
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroApi
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
 import ru.korolenkoe.lab1effective.screens.HeroScreen
 import ru.korolenkoe.lab1effective.screens.MainScreen
 
 @Composable
 fun Navigation(
-    navController: NavHostController, viewModel: ViewModelHeroes,
-    viewModel2: ViewModelGetHero = ViewModelGetHero(),
+    navController: NavHostController, viewModel: ViewModelGetHeroesApi,
+    viewModel2: ViewModelGetHeroApi = ViewModelGetHeroApi(),
     characterDBViewModel: CharacterDBViewModel
 ) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {

@@ -23,14 +23,14 @@ import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.MarvelApiStatus
-import ru.korolenkoe.lab1effective.network.ViewModelHeroes
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
 import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 
 @Composable
 fun LazyRowHeroes(
     navController: NavController?,
-    viewModel: ViewModelHeroes,
+    viewModel: ViewModelGetHeroesApi,
     characterDBViewModel: CharacterDBViewModel
 ) {
     val context = LocalContext.current

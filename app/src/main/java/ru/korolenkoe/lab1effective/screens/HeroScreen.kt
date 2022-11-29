@@ -33,7 +33,7 @@ import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
-import ru.korolenkoe.lab1effective.network.ViewModelGetHero
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroApi
 import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 
@@ -42,7 +42,7 @@ import ru.korolenkoe.lab1effective.network.currentConnectivityState
 fun HeroScreen(
     navController: NavController?,
     id: Int,
-    viewModel: ViewModelGetHero = ViewModelGetHero(),
+    viewModel: ViewModelGetHeroApi = ViewModelGetHeroApi(),
     characterDBViewModel: CharacterDBViewModel
 ) {
 
@@ -86,7 +86,7 @@ fun HeroScreen(
 @Composable
 fun getHeroById(
     id: Int,
-    viewModel: ViewModelGetHero,
+    viewModel: ViewModelGetHeroApi,
     characterDBViewModel: CharacterDBViewModel
 ): Character {
     val status = viewModel.status.collectAsState().value

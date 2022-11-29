@@ -16,8 +16,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.navigation.Navigation
-import ru.korolenkoe.lab1effective.network.ViewModelGetHero
-import ru.korolenkoe.lab1effective.network.ViewModelHeroes
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroApi
+import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
 import ru.korolenkoe.lab1effective.ui.theme.Lab1effectiveTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val viewModel2: ViewModelGetHero by viewModels()
-                    val viewModel: ViewModelHeroes by viewModels()
+                    val viewModel2: ViewModelGetHeroApi by viewModels()
+                    val viewModel: ViewModelGetHeroesApi by viewModels()
 
                     val context = LocalContext.current
 
