@@ -6,11 +6,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.screens.heroscreen.ViewModelGetHeroApi
-import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.ViewModelGetHeroesApi
 import ru.korolenkoe.lab1effective.screens.heroscreen.HeroScreen
-import ru.korolenkoe.lab1effective.screens.MainScreen
+import ru.korolenkoe.lab1effective.screens.mainscreen.MainScreen
 
 @Composable
 fun Navigation(

@@ -1,4 +1,4 @@
-package ru.korolenkoe.lab1effective.db
+package ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import ru.korolenkoe.lab1effective.db.CharacterDatabase
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.entities.Thumbnail
 import ru.korolenkoe.lab1effective.repository.CharacterRepositoryDB

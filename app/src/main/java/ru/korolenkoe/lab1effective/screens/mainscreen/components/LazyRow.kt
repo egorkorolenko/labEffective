@@ -1,4 +1,4 @@
-package ru.korolenkoe.lab1effective
+package ru.korolenkoe.lab1effective.screens.mainscreen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,13 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
+import ru.korolenkoe.lab1effective.Indicator
 import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.cards.HeroCard
-import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.MarvelApiStatus
-import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.ViewModelGetHeroesApi
 import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
 

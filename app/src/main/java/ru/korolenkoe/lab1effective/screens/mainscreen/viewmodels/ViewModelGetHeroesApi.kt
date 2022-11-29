@@ -1,4 +1,4 @@
-package ru.korolenkoe.lab1effective.network
+package ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.korolenkoe.lab1effective.entities.Character
+import ru.korolenkoe.lab1effective.network.MarvelApiStatus
 import ru.korolenkoe.lab1effective.repository.CharacterRepositoryApi
 import java.io.IOException
 

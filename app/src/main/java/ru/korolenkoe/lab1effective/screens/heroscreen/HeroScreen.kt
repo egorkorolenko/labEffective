@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.korolenkoe.lab1effective.cards.ErrorCard
-import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.screens.heroscreen.components.*
 
 

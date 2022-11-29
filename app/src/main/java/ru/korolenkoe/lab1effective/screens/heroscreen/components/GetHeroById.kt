@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import ru.korolenkoe.lab1effective.cards.ErrorCard
-import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.currentConnectivityState

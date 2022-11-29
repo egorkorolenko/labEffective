@@ -14,10 +14,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.navigation.Navigation
 import ru.korolenkoe.lab1effective.screens.heroscreen.ViewModelGetHeroApi
-import ru.korolenkoe.lab1effective.network.ViewModelGetHeroesApi
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.CharacterDBViewModel
+import ru.korolenkoe.lab1effective.screens.mainscreen.viewmodels.ViewModelGetHeroesApi
 import ru.korolenkoe.lab1effective.ui.theme.Lab1effectiveTheme
 
 class MainActivity : ComponentActivity() {
