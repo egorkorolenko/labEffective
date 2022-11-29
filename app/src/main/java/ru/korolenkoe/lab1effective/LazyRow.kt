@@ -20,7 +20,7 @@ import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.cards.HeroCard
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
-import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.MarvelApiStatus
 import ru.korolenkoe.lab1effective.network.ViewModelHeroes

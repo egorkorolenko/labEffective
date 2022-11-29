@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import ru.korolenkoe.lab1effective.models.Response
+import ru.korolenkoe.lab1effective.entities.Response
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*

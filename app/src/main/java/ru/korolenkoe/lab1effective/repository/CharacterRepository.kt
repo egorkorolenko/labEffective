@@ -2,7 +2,7 @@ package ru.korolenkoe.lab1effective.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.korolenkoe.lab1effective.dao.CharacterDao
-import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.entities.Character
 
 
 class CharacterRepository(private val characterDao: CharacterDao) {

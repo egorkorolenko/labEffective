@@ -1,4 +1,4 @@
-package ru.korolenkoe.lab1effective.models
+package ru.korolenkoe.lab1effective.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -25,34 +25,4 @@ data class Character(
     @ColumnInfo(name = "thumbnail", typeAffinity = ColumnInfo.BLOB)
     @TypeConverters(ThumbnailConverter::class)
     val thumbnail: Thumbnail?
-)
-
-@JsonClass(generateAdapter = true)
-data class Thumbnail(
-    @Json(name = "path")
-    val path: String,
-    @Json(name = "extension")
-    val extension: String
-) {
-    val pathSec: String
-        get() = "$path.$extension"
-}
-
-@JsonClass(generateAdapter = true)
-@Entity(tableName = "response")
-data class Response(
-    @Json(name = "code")
-    @ColumnInfo(name = "code")
-    val code: Int,
-    @Json(name = "data")
-    @ColumnInfo(name = "data")
-    val data: Data
-)
-
-@JsonClass(generateAdapter = true)
-@Entity(tableName = "Data")
-data class Data(
-    @Json(name = "results")
-    @ColumnInfo(name = "results")
-    val results: List<Character>
 )

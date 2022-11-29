@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.entities.Character
 
 @Dao
 interface CharacterDao {

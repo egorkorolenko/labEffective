@@ -32,8 +32,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ru.korolenkoe.lab1effective.R
-import ru.korolenkoe.lab1effective.models.Character
-import ru.korolenkoe.lab1effective.models.Thumbnail
+import ru.korolenkoe.lab1effective.entities.Character
+import ru.korolenkoe.lab1effective.entities.Thumbnail
 import ru.korolenkoe.lab1effective.navigation.Screen
 import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.currentConnectivityState

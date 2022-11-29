@@ -31,7 +31,7 @@ import coil.request.ImageRequest
 import ru.korolenkoe.lab1effective.R
 import ru.korolenkoe.lab1effective.cards.ErrorCard
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
-import ru.korolenkoe.lab1effective.models.Character
+import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
 import ru.korolenkoe.lab1effective.network.ViewModelGetHero
 import ru.korolenkoe.lab1effective.network.currentConnectivityState

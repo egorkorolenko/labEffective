@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import ru.korolenkoe.lab1effective.models.Character
-import ru.korolenkoe.lab1effective.models.Thumbnail
+import ru.korolenkoe.lab1effective.entities.Character
+import ru.korolenkoe.lab1effective.entities.Thumbnail
 import ru.korolenkoe.lab1effective.repository.CharacterRepository
 
 class CharacterDBViewModel(application: Application) : ViewModel() {
