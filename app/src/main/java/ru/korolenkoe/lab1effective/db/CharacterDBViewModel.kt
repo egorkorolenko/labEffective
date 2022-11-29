@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.entities.Thumbnail
-import ru.korolenkoe.lab1effective.repository.CharacterRepository
+import ru.korolenkoe.lab1effective.repository.CharacterRepositoryDB
 
 class CharacterDBViewModel(application: Application) : ViewModel() {
 
-    private val repository: CharacterRepository
+    private val repository: CharacterRepositoryDB
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     val readAll: Flow<List<Character>>
 
@@ -26,7 +26,7 @@ class CharacterDBViewModel(application: Application) : ViewModel() {
     init {
         val database = CharacterDatabase.getDatabase(application)
         val dao = database.characterDao()
-        repository = CharacterRepository(dao)
+        repository = CharacterRepositoryDB(dao)
         readAll = repository.readAll
     }
 

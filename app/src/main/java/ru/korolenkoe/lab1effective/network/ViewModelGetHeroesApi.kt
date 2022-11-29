@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.korolenkoe.lab1effective.entities.Character
+import ru.korolenkoe.lab1effective.repository.CharacterRepositoryApi
 import java.io.IOException
 
 class ViewModelGetHeroesApi : ViewModel() {
+
+    private val repositoryApi = CharacterRepositoryApi()
 
     private val _heroes = MutableLiveData<List<Character>>()
     val heroes: LiveData<List<Character>> = _heroes
@@ -24,10 +27,7 @@ class ViewModelGetHeroesApi : ViewModel() {
         viewModelScope.launch {
             try {
                 _status.value = MarvelApiStatus.LOADING
-                _heroes.value = MarvelApi.getService()
-                    .getListHeroes()
-                    .data
-                    .results
+                _heroes.value = repositoryApi.getCharacters().data.results
                 _status.value = MarvelApiStatus.DONE
             } catch (e: IOException) {
                 println(e)

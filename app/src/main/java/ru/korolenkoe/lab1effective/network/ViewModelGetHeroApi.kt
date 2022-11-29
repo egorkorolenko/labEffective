@@ -7,10 +7,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.korolenkoe.lab1effective.entities.Character
 import ru.korolenkoe.lab1effective.entities.Thumbnail
+import ru.korolenkoe.lab1effective.repository.CharacterRepositoryApi
 import java.io.IOException
 
 
 class ViewModelGetHeroApi : ViewModel() {
+
+    private val repositoryApi = CharacterRepositoryApi()
 
     private var _status = MutableStateFlow(MarvelApiStatus.LOADING)
     val status: StateFlow<MarvelApiStatus>
@@ -23,8 +26,7 @@ class ViewModelGetHeroApi : ViewModel() {
         viewModelScope.launch {
             _status.value = MarvelApiStatus.LOADING
             try {
-                _hero.value = MarvelApi.getService()
-                    .getHero(id).data.results[0]
+                _hero.value = repositoryApi.getCharacterById(id).data.results[0]
                 _status.value = MarvelApiStatus.DONE
             } catch (e: IOException) {
                 println(e)

@@ -5,7 +5,7 @@ import ru.korolenkoe.lab1effective.dao.CharacterDao
 import ru.korolenkoe.lab1effective.entities.Character
 
 
-class CharacterRepository(private val characterDao: CharacterDao) {
+class CharacterRepositoryDB(private val characterDao: CharacterDao) {
 
     val readAll : Flow<List<Character>> = characterDao.getAll()
 
