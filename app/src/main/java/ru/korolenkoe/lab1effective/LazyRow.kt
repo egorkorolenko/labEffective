@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +22,7 @@ import ru.korolenkoe.lab1effective.cards.HeroCard
 import ru.korolenkoe.lab1effective.db.CharacterDBViewModel
 import ru.korolenkoe.lab1effective.models.Character
 import ru.korolenkoe.lab1effective.network.ConnectionState
+import ru.korolenkoe.lab1effective.network.MarvelApiStatus
 import ru.korolenkoe.lab1effective.network.ViewModelHeroes
 import ru.korolenkoe.lab1effective.network.currentConnectivityState
 
@@ -34,10 +36,10 @@ fun LazyRowHeroes(
     val context = LocalContext.current
 
     if (context.currentConnectivityState == ConnectionState.Available) {
-        val heroes = viewModel.heroes.collectAsState().value
-        val status = viewModel.status.collectAsState()
+        val heroes = viewModel.heroes.observeAsState(emptyList())
+        val status = viewModel.status.observeAsState(MarvelApiStatus.LOADING)
         if (status.value.name == "DONE")
-            characterDBViewModel.insertAllCharacters(heroes)
+            characterDBViewModel.insertAllCharacters(heroes.value)
         Box(
             Modifier
                 .fillMaxWidth()
@@ -49,7 +51,7 @@ fun LazyRowHeroes(
         if (status.value.name == "ERROR") {
             ErrorCard()
         } else {
-            getHereLazyRow(characters = heroes, navController = navController)
+            getHereLazyRow(characters = heroes.value, navController = navController)
         }
     } else {
         val list = characterDBViewModel.readAll.collectAsState(emptyList())

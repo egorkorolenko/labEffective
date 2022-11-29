@@ -1,5 +1,7 @@
 package ru.korolenkoe.lab1effective.network
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,12 +16,11 @@ enum class MarvelApiStatus { LOADING, ERROR, DONE }
 
 class ViewModelHeroes : ViewModel() {
 
-    private val _heroes = MutableStateFlow<List<Character>>(emptyList())
-    val heroes: StateFlow<List<Character>> = _heroes
+    private val _heroes = MutableLiveData<List<Character>>()
+    val heroes: LiveData<List<Character>> = _heroes
 
-    private val _status = MutableStateFlow(MarvelApiStatus.LOADING)
-    val status: StateFlow<MarvelApiStatus>
-        get() = _status
+    private val _status = MutableLiveData<MarvelApiStatus>()
+    val status: LiveData<MarvelApiStatus> = _status
 
 
 init {
