@@ -6,21 +6,22 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.CharacterDBViewModel
-import ru.korolenkoe.labeffective.screens.heroscreen.ViewModelGetHeroApi
-import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.ViewModelGetHeroesApi
 import ru.korolenkoe.labeffective.screens.heroscreen.HeroScreen
+import ru.korolenkoe.labeffective.screens.heroscreen.ViewModelGetHeroApi
 import ru.korolenkoe.labeffective.screens.mainscreen.MainScreen
+import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.CharacterDBViewModel
+import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.ViewModelGetHeroesApi
 
 @Composable
 fun Navigation(
-    navController: NavHostController, viewModel: ViewModelGetHeroesApi,
-    viewModel2: ViewModelGetHeroApi = ViewModelGetHeroApi(),
+    navController: NavHostController,
+    viewModelGetHeroesApi: ViewModelGetHeroesApi,
+    viewModelGetHeroApi: ViewModelGetHeroApi = ViewModelGetHeroApi(),
     characterDBViewModel: CharacterDBViewModel
 ) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.MainScreen.route) {
-            MainScreen(navController = navController, viewModel, characterDBViewModel)
+            MainScreen(navController = navController, viewModelGetHeroesApi, characterDBViewModel)
         }
         composable(
             route = Screen.HeroScreen.route + "/{id}",
@@ -33,7 +34,7 @@ fun Navigation(
             HeroScreen(
                 navController = navController,
                 entry.arguments?.get("id") as Int,
-                viewModel2,
+                viewModelGetHeroApi,
                 characterDBViewModel
             )
         }

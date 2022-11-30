@@ -14,9 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ru.korolenkoe.labeffective.R
 import ru.korolenkoe.labeffective.entities.Character
 import ru.korolenkoe.labeffective.network.ConnectionState
 import ru.korolenkoe.labeffective.network.currentConnectivityState
@@ -35,7 +37,7 @@ fun HeroLogo(character: Character) {
                     .data(character.thumbnail?.pathSec)
                     .build(),
                 contentScale = ContentScale.Crop,
-                contentDescription = null,
+                contentDescription = stringResource(R.string.logo_should_be_here),
                 modifier = Modifier.border(BorderStroke(4.dp, Color.Red))
             )
         } else {

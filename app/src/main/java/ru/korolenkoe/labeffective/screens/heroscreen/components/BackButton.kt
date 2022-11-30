@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.korolenkoe.labeffective.R
@@ -30,7 +31,7 @@ fun BackButton(navController: NavController?) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                contentDescription = "back_button",
+                contentDescription = stringResource(R.string.back_button),
                 modifier = Modifier.size(50.dp)
             )
         }

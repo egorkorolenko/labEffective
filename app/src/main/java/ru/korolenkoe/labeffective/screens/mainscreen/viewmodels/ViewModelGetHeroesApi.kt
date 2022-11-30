@@ -1,9 +1,9 @@
 package ru.korolenkoe.labeffective.screens.mainscreen.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.korolenkoe.labeffective.entities.Character
 import ru.korolenkoe.labeffective.network.MarvelApiStatus
@@ -14,11 +14,11 @@ class ViewModelGetHeroesApi : ViewModel() {
 
     private val repositoryApi = CharacterRepositoryApi()
 
-    private val _heroes = MutableLiveData<List<Character>>()
-    val heroes: LiveData<List<Character>> = _heroes
+    private val _heroes = MutableStateFlow<List<Character>>(emptyList())
+    val heroes: StateFlow<List<Character>> = _heroes
 
-    private val _status = MutableLiveData<MarvelApiStatus>()
-    val status: LiveData<MarvelApiStatus> = _status
+    private val _status = MutableStateFlow(MarvelApiStatus.LOADING)
+    val status: StateFlow<MarvelApiStatus> = _status
 
     init {
         getHeroes()
@@ -26,8 +26,8 @@ class ViewModelGetHeroesApi : ViewModel() {
 
     private fun getHeroes() {
         viewModelScope.launch {
+            _status.value = MarvelApiStatus.LOADING
             try {
-                _status.value = MarvelApiStatus.LOADING
                 _heroes.value = repositoryApi.getCharacters().data.results
                 _status.value = MarvelApiStatus.DONE
             } catch (e: IOException) {

@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val viewModel2: ViewModelGetHeroApi by viewModels()
-                    val viewModel: ViewModelGetHeroesApi by viewModels()
+                    val viewModelGetHeroApi: ViewModelGetHeroApi by viewModels()
+                    val viewModelGetHeroesApi: ViewModelGetHeroesApi by viewModels()
 
                     val context = LocalContext.current
 
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                         CharacterDBViewModel.CharacterViewModelFactory((context.applicationContext as Application))
                     }
                     navHostController = rememberNavController()
-                    Navigation(navHostController, viewModel, viewModel2, characterDBViewModel)
+                    Navigation(navHostController, viewModelGetHeroesApi, viewModelGetHeroApi, characterDBViewModel)
                 }
             }
         }
