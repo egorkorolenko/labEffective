@@ -15,11 +15,17 @@ android {
         versionCode 1
         versionName "1.0"
 
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        buildConfigField "String", "API_KEY", "${properties.getProperty('API_KEY')}"
+        buildConfigField "String", "PRIVATE_API_KEY", "${properties.getProperty('PRIVATE_API_KEY')}"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
-    }
+       }
 
     buildTypes {
         release {
