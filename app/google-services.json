@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "368952885005",
+    "project_id": "labeffective-b1ce8",
+    "storage_bucket": "labeffective-b1ce8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368952885005:android:03ff8e1b3c4c21edb17a44",
+        "android_client_info": {
+          "package_name": "ru.korolenkoe.labeffective"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368952885005-b4f4p0nvmjs95tt3iqe2h3na71d5loi1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzv1PWYW3WGiYiIfQPjH58uraD5EKCvMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368952885005-b4f4p0nvmjs95tt3iqe2h3na71d5loi1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
