@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.korolenkoe.labeffective.cards.ErrorCard
-import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.CharacterDBViewModel
 import ru.korolenkoe.labeffective.screens.heroscreen.components.*
+import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.CharacterDBViewModel
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -23,11 +23,11 @@ import ru.korolenkoe.labeffective.screens.heroscreen.components.*
 fun HeroScreen(
     navController: NavController?,
     id: Int,
-    viewModel: ViewModelGetHeroApi = ViewModelGetHeroApi(),
-    characterDBViewModel: CharacterDBViewModel
+    viewModel: ViewModelGetHeroApi,
+    characterDBViewModel: CharacterDBViewModel?
 ) {
 
-    val hero = GetHeroById(id, viewModel, characterDBViewModel)
+    val hero = GetHeroById(id, viewModel, characterDBViewModel!!)
     val colorMatrix = ColorMatrix()
 
     BackButton(navController)
