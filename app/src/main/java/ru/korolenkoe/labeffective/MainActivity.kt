@@ -18,13 +18,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import ru.korolenkoe.labeffective.navigation.Navigation
-import ru.korolenkoe.labeffective.screens.heroscreen.HeroScreen
 import ru.korolenkoe.labeffective.screens.heroscreen.ViewModelGetHeroApi
 import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.CharacterDBViewModel
 import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.ViewModelGetHeroesApi
 import ru.korolenkoe.labeffective.ui.theme.Lab1effectiveTheme
-import ru.korolenkoe.labeffective.utils.BroadCast
-
 
 class MainActivity : ComponentActivity() {
 
@@ -60,39 +57,18 @@ class MainActivity : ComponentActivity() {
                         CharacterDBViewModel.CharacterViewModelFactory((context.applicationContext as Application))
                     }
 
-                    val b = BroadCast()
-                    val id = b.cas(context = context)
-
-                    MainScreen2(
-                        navController = navHostController,
-                        viewModelGetHeroesApi = viewModelGetHeroesApi,
-                        characterDBViewModel = characterDBViewModel,
-                        id = id
+                    Navigation(
+                        navHostController, viewModelGetHeroesApi, viewModelGetHeroApi, characterDBViewModel
                     )
                 }
             }
         }
     }
-}
 
-@Composable
-fun MainScreen2(
-    navController: NavHostController,
-    viewModelGetHeroesApi: ViewModelGetHeroesApi,
-    viewModelGetHeroApi: ViewModelGetHeroApi = ViewModelGetHeroApi(),
-    characterDBViewModel: CharacterDBViewModel,
-    id: Int?,
-) {
-    if (id != 0) HeroScreen(
-        navController = navController,
-        id = id!!,
-        viewModelGetHeroApi,
-        characterDBViewModel = characterDBViewModel
-    ) else Navigation(
-        navController, viewModelGetHeroesApi, viewModelGetHeroApi, characterDBViewModel
-    )
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }
-
 
 @Preview(showBackground = true)
 @Composable

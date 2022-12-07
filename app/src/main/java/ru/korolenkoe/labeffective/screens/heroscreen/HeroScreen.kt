@@ -23,7 +23,7 @@ import ru.korolenkoe.labeffective.screens.mainscreen.viewmodels.CharacterDBViewM
 fun HeroScreen(
     navController: NavController?,
     id: Int,
-    viewModel: ViewModelGetHeroApi,
+    viewModel: ViewModelGetHeroApi = ViewModelGetHeroApi(),
     characterDBViewModel: CharacterDBViewModel?
 ) {
 
