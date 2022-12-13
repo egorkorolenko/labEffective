@@ -5,6 +5,7 @@ import ru.korolenkoe.labeffective.BuildConfig
 import ru.korolenkoe.labeffective.utils.GetMD5
 import java.util.*
 
+
 class MarvelApiInterceptor : Interceptor {
 
     private val _apikey = BuildConfig.API_KEY

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">labeffective</string>
     <string name="choose_your_hero" translatable="false">Choose your hero</string>
     <string name="deadpool" translatable="false">DeadPool</string>
@@ -13,5 +13,7 @@
     <string name="back_button" translatable="false">back_button</string>
     <string name="logo_should_be_here" translatable="false">There should be a logo here</string>
     <string name="placeholder" translatable="false">placeholder</string>
+    <string name="error" translatable="false">Error</string>
     <string name="failed_oad_data" translatable="false">Failed to load data:(</string>
+    <string name="default_notification_channel_id" tools:ignore="MissingTranslation">Global</string>
 </resources>

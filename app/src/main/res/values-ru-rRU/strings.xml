@@ -15,4 +15,5 @@
     <string name="logo_should_be_here" translatable="false">Здесь должен быть логотип</string>
     <string name="placeholder" translatable="false">" Заполнитель"</string>
     <string name="failed_oad_data" translatable="false">Не удалось загрузить данные:(</string>
+    <string name="error" translatable="false">Ошибка</string>
 </resources>
