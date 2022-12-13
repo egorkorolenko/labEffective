@@ -13,6 +13,7 @@
     <string name="back_button" translatable="false">back_button</string>
     <string name="logo_should_be_here" translatable="false">There should be a logo here</string>
     <string name="placeholder" translatable="false">placeholder</string>
+    <string name="error" translatable="false">Error</string>
     <string name="failed_oad_data" translatable="false">Failed to load data:(</string>
     <string name="default_notification_channel_id" tools:ignore="MissingTranslation">Global</string>
 </resources>

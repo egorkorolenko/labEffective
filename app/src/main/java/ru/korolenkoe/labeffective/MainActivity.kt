@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             }
 
             val token = task.result
-            Log.e("token", "Token -> $token")
+            Log.i("token", "Token -> $token")
         }
 
         setContent {

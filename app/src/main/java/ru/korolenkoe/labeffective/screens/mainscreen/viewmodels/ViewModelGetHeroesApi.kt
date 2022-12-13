@@ -1,5 +1,6 @@
 package ru.korolenkoe.labeffective.screens.mainscreen.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +32,7 @@ class ViewModelGetHeroesApi : ViewModel() {
                 _heroes.value = repositoryApi.getCharacters().data.results
                 _status.value = MarvelApiStatus.DONE
             } catch (e: IOException) {
-                println(e)
+                Log.e(e.message,"Error")
                 _status.value = MarvelApiStatus.ERROR
                 _heroes.value = listOf()
             }

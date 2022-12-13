@@ -95,7 +95,6 @@ fun HeroCardPreview(
 ) {
     HeroCard(
         Character(1, "Heto", "Desc", Thumbnail("drawable/capitan", ".jpg")),
-        navController,
-
+        navController
         )
 }

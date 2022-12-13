@@ -64,10 +64,5 @@ class PushService : FirebaseMessagingService() {
 
         notificationManager.notify(1, notificationBuilder)
     }
-
-
-    companion object {
-        const val INTENT_FILTER = "TAP_PUSH"
-    }
 }
 

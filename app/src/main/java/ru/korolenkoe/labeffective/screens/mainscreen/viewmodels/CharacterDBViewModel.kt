@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import ru.korolenkoe.labeffective.R
 import ru.korolenkoe.labeffective.db.CharacterDatabase
 import ru.korolenkoe.labeffective.entities.Character
 import ru.korolenkoe.labeffective.entities.Thumbnail
@@ -21,7 +22,14 @@ class CharacterDBViewModel(application: Application) : ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     val readAll: Flow<List<Character>>
 
-    private var _hero = MutableStateFlow(Character(1, "Error", "Error", Thumbnail("", "")))
+    private var _hero = MutableStateFlow(
+        Character(
+            1,
+            R.string.error.toString(),
+            R.string.error.toString(),
+            Thumbnail("", "")
+        )
+    )
     var hero: StateFlow<Character?> = _hero
 
     init {
