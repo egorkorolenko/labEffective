@@ -12,6 +12,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -42,11 +44,12 @@ fun HeroCard(
 
     Card(
         modifier = Modifier
-            .padding(20.dp)
+            .padding(20.dp, 20.dp, 20.dp, 40.dp)
+            .clip(RoundedCornerShape(4.dp))
             .border(BorderStroke(4.dp, Color.Red))
             .clickable { navController?.navigate("${Screen.HeroScreen.route}/${hero.id}") },
         shape = RoundedCornerShape(16.dp),
-        elevation = 15.dp
+        elevation = 10.dp
     ) {
         Box(Modifier.width(350.dp), contentAlignment = Alignment.Center) {
             if (context.currentConnectivityState == ConnectionState.Available) {
@@ -73,7 +76,8 @@ fun HeroCard(
             }
             Box(
                 modifier = Modifier
-                    .fillMaxSize().padding(4.dp),
+                    .fillMaxSize()
+                    .padding(4.dp),
                 contentAlignment = Alignment.BottomCenter
             ) {
                 Text(

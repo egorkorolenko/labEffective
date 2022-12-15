@@ -34,7 +34,12 @@ fun HeroScreen(
     BackButton(navController)
 
     if (viewModel.status.collectAsState().value.name == "ERROR") {
-        ErrorCard()
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            ErrorCard()
+        }
     } else {
         colorMatrix.setToSaturation(0f)
         Box(
@@ -43,6 +48,7 @@ fun HeroScreen(
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.TopCenter
             ) {
                 HeroLogo(hero)
             }
@@ -58,7 +64,7 @@ fun HeroScreen(
             val scroll = rememberScrollState(0)
             Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
                 HeroName(hero.name)
-                HeroDescription(hero.description, isExpanded,scroll)
+                HeroDescription(hero.description, isExpanded, scroll)
             }
         }
     }

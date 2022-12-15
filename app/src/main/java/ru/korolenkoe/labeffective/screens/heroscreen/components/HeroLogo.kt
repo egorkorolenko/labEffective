@@ -36,9 +36,11 @@ fun HeroLogo(character: Character) {
     Box(
         modifier = if (orientation == Configuration.ORIENTATION_PORTRAIT) Modifier
             .fillMaxSize()
-            .padding(0.dp, 100.dp) else Modifier.size(500.dp).padding(150.dp, 100.dp),
-        contentAlignment = if (orientation == Configuration.ORIENTATION_LANDSCAPE) Alignment.TopCenter
-        else Alignment.TopCenter
+            .padding(0.dp, 200.dp) else Modifier
+            .size(200.dp)
+            .fillMaxSize()
+            .padding(0.dp, 10.dp, 0.dp, 0.dp),
+        contentAlignment = Alignment.Center
     ) {
         if (context.currentConnectivityState == ConnectionState.Available) {
             AsyncImage(
