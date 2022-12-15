@@ -16,7 +16,7 @@ This is my android learning project.
 
 |Light Theme                   |Dark Theme                   |
 |:----------------------------:|:---------------------------:|
-|<img src="hero_screen_white.jpg" height="400">|<img src="assets/hero_screen_black.jpg" height="400">| 
+|<img src="assets/hero_screen_white.jpg" height="400">|<img src="assets/hero_screen_black.jpg" height="400">| 
 
 ## Topics
 
