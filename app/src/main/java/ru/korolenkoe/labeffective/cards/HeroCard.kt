@@ -4,14 +4,8 @@ package ru.korolenkoe.labeffective.cards
 
 import android.graphics.BitmapFactory
 import android.util.Base64
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -68,19 +62,27 @@ fun HeroCard(
                 val bitmapString = hero.thumbnail?.path!!
                 val imageBytes = Base64.decode(bitmapString, 0)
                 val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                Image(bitmap =bitmap.asImageBitmap(), contentDescription ="")
+                if (bitmap == null) {
+                    Image(
+                        painter = painterResource(id = R.drawable.placeholder),
+                        contentDescription = ""
+                    )
+                } else {
+                    Image(bitmap = bitmap.asImageBitmap(), contentDescription = "")
+                }
             }
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp),
-                contentAlignment = Alignment.BottomStart
+                    .fillMaxSize().padding(4.dp),
+                contentAlignment = Alignment.BottomCenter
             ) {
                 Text(
+                    modifier = Modifier
+                        .background(Color.Red)
+                        .fillMaxWidth(),
                     text = hero.name,
                     fontSize = 20.sp,
                     fontFamily = FontFamily.Serif,
-                    color = Color.Black,
                     fontWeight = FontWeight.Bold,
                 )
             }
@@ -96,5 +98,5 @@ fun HeroCardPreview(
     HeroCard(
         Character(1, "Heto", "Desc", Thumbnail("drawable/capitan", ".jpg")),
         navController
-        )
+    )
 }

@@ -1,6 +1,5 @@
 package ru.korolenkoe.labeffective.screens.mainscreen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -16,9 +15,7 @@ fun MainScreen(
     viewModel: ViewModelGetHeroesApi,
     characterDBViewModel: CharacterDBViewModel
 ) {
-    Column(
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
+    Column {
         MarvelLogo()
         ChooseYourHeroText()
         LazyRowHeroes(navController, viewModel, characterDBViewModel)
