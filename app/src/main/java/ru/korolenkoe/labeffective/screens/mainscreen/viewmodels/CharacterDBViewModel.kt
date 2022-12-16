@@ -1,6 +1,7 @@
 package ru.korolenkoe.labeffective.screens.mainscreen.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
@@ -10,11 +11,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.korolenkoe.labeffective.R
 import ru.korolenkoe.labeffective.db.CharacterDatabase
 import ru.korolenkoe.labeffective.entities.Character
 import ru.korolenkoe.labeffective.entities.Thumbnail
 import ru.korolenkoe.labeffective.repository.CharacterRepositoryDB
+import java.io.IOException
 
 class CharacterDBViewModel(application: Application) : ViewModel() {
 
@@ -41,7 +44,13 @@ class CharacterDBViewModel(application: Application) : ViewModel() {
 
     fun insertAllCharacters(characters: List<Character>) {
         coroutineScope.launch {
-            repository.insertAllCharacters(characters)
+            try {
+                withContext(Dispatchers.IO) {
+                    repository.insertAllCharacters(characters)
+                }
+            } catch (e: IOException) {
+                Log.e(e.message, "Error")
+            }
         }
     }
 

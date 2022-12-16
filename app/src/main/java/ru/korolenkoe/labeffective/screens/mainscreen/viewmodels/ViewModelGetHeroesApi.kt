@@ -3,9 +3,11 @@ package ru.korolenkoe.labeffective.screens.mainscreen.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.korolenkoe.labeffective.entities.Character
 import ru.korolenkoe.labeffective.network.MarvelApiStatus
@@ -30,7 +32,9 @@ class ViewModelGetHeroesApi : ViewModel() {
         viewModelScope.launch {
             _status.value = MarvelApiStatus.LOADING
             try {
-                _heroes.value = repositoryApi.getCharacters().data.results
+                withContext(Dispatchers.IO) {
+                    _heroes.value = repositoryApi.getCharacters().data.results
+                }
                 _status.value = MarvelApiStatus.DONE
             } catch (e: IOException) {
                 Log.e(e.message, "Error")
@@ -39,6 +43,7 @@ class ViewModelGetHeroesApi : ViewModel() {
             } catch (e: HttpException) {
                 Log.e(e.message, "Error")
                 _status.value = MarvelApiStatus.ERROR
+                _heroes.value = listOf()
             }
         }
     }
