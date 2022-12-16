@@ -1,12 +1,13 @@
 package ru.korolenkoe.labeffective.screens.heroscreen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorMatrix
@@ -33,7 +34,12 @@ fun HeroScreen(
     BackButton(navController)
 
     if (viewModel.status.collectAsState().value.name == "ERROR") {
-        ErrorCard()
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            ErrorCard()
+        }
     } else {
         colorMatrix.setToSaturation(0f)
         Box(
@@ -42,7 +48,7 @@ fun HeroScreen(
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.TopCenter
             ) {
                 HeroLogo(hero)
             }
@@ -54,9 +60,11 @@ fun HeroScreen(
                 .padding(20.dp),
             contentAlignment = Alignment.BottomStart
         ) {
-            Column {
+            var isExpanded by remember { mutableStateOf(false) }
+            val scroll = rememberScrollState(0)
+            Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
                 HeroName(hero.name)
-                HeroDescription(hero.description)
+                HeroDescription(hero.description, isExpanded, scroll)
             }
         }
     }

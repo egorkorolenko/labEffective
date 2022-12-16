@@ -32,7 +32,7 @@ fun LazyRowHeroes(
     viewModel: ViewModelGetHeroesApi,
     characterDBViewModel: CharacterDBViewModel
 ) {
-    val context = LocalContext.current
+    val context =  LocalContext.current
 
     if (context.currentConnectivityState == ConnectionState.Available) {
         val heroes = viewModel.heroes.collectAsState()

@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.messaging.FirebaseMessaging
@@ -25,11 +26,13 @@ import ru.korolenkoe.labeffective.ui.theme.Lab1effectiveTheme
 
 class MainActivity : ComponentActivity() {
 
-    lateinit var navHostController: NavHostController
+    private lateinit var navHostController: NavHostController
 
     @SuppressLint("StateFlowValueCalledInComposition", "UnrememberedMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {

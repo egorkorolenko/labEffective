@@ -3,7 +3,10 @@ package ru.korolenkoe.labeffective.cards
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,11 +26,11 @@ import ru.korolenkoe.labeffective.R
 fun ErrorCard() {
     Card(
         modifier = Modifier
-            .padding(20.dp, 120.dp)
-            .size(350.dp, 150.dp)
+            .padding(20.dp)
+            .size(500.dp)
             .border(BorderStroke(4.dp, Color.Red))
     ) {
-        Box(Modifier.width(350.dp), contentAlignment = Alignment.Center) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Image(
                 painter = painterResource(id = R.drawable.placeholder),
                 contentDescription = stringResource(R.string.placeholder)
@@ -41,7 +44,6 @@ fun ErrorCard() {
                     text = stringResource(R.string.failed_oad_data),
                     fontSize = 20.sp,
                     fontFamily = FontFamily.Serif,
-                    color = Color.Black,
                     fontWeight = FontWeight.Bold,
                 )
             }
