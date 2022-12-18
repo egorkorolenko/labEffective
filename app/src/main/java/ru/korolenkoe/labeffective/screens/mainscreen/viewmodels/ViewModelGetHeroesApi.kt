@@ -32,7 +32,7 @@ class ViewModelGetHeroesApi : ViewModel() {
         viewModelScope.launch {
             _status.value = MarvelApiStatus.LOADING
             try {
-                withContext(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
                     _heroes.value = repositoryApi.getCharacters().data.results
                 }
                 _status.value = MarvelApiStatus.DONE

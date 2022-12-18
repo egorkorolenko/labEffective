@@ -1,5 +1,6 @@
 package ru.korolenkoe.labeffective.entities
 
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +11,7 @@ import ru.korolenkoe.labeffective.utils.ThumbnailConverter
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "characters")
+@Keep
 data class Character(
     @Json(name = "id")
     @PrimaryKey(autoGenerate = false)
