@@ -24,9 +24,9 @@ This is my android learning project.
 
 |landscape orientation                
 |:----------------------------:|
-|<img src="assets/landscape1.jpg" height="600">
+|<img src="assets/landscape1.jpg" height="400">
 |:----------------------------:|
-|<img src="assets/landscape2.jpg" height="600">
+|<img src="assets/landscape2.jpg" height="400">
 
 ## Topics
 
