@@ -18,6 +18,16 @@ This is my android learning project.
 |:----------------------------:|:---------------------------:|
 |<img src="assets/hero_screen_white.jpg" height="400">|<img src="assets/hero_screen_black.jpg" height="400">| 
 
+|Locale ru                     |Locale en                    |
+|:----------------------------:|:---------------------------:|
+|<img src="assets/main_menu_black.jpg" height="400">|<img src="assets/locale.jpg" height="400">| 
+
+|landscape orientation                
+|:----------------------------:|
+|<img src="assets/landscape1.jpg" height="1000">
+|:----------------------------:|
+|<img src="assets/landscape2.jpg" height="1000">
+
 ## Topics
 
 * Navigation
