@@ -3,6 +3,7 @@ package ru.korolenkoe.labeffective.screens.heroscreen.components
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +32,8 @@ fun HeroDescription(text: String, isExpanded: Boolean, scroll: ScrollState) {
         modifier = Modifier
             .height(90.dp)
             .fillMaxWidth()
-            .verticalScroll(scroll),
+            .verticalScroll(scroll)
+            .navigationBarsPadding(),
         text = text,
         fontSize = 20.sp,
         fontFamily = FontFamily.Serif,

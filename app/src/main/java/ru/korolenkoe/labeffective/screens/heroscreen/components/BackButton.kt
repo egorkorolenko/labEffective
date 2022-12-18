@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ fun BackButton(navController: NavController?) {
         modifier = Modifier
             .size(100.dp)
             .padding(10.dp)
+            .statusBarsPadding()
     ) {
         Button(
             onClick = {
