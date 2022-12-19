@@ -7,6 +7,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword '111111'
+            storePassword '111111'
+            storeFile file('D:\\Android\\key\\2\\key.jks')
+        }
+    }
     compileSdk 33
 
     defaultConfig {
@@ -26,12 +34,12 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -72,7 +80,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.6.1'
     implementation "dev.chrisbanes.snapper:snapper:0.3.0"
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -87,10 +95,10 @@ dependencies {
 
     implementation("androidx.room:room-runtime:2.4.3")
     implementation 'androidx.room:room-ktx:2.4.3'
-    kapt ("androidx.room:room-compiler:2.5.0-beta02")
-    implementation 'androidx.compose.runtime:runtime-livedata:1.4.0-alpha02'
+    kapt ("androidx.room:room-compiler:2.5.0-rc01")
+    implementation 'androidx.compose.runtime:runtime-livedata:1.4.0-alpha03'
 
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.1'
 }
